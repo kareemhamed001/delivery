@@ -17,7 +17,7 @@
         <div class="container d-flex flex-column   flex-wrap align-items-center justify-content-center py-2">
 
             <div class="d-flex container w-100 flex-column  justify-content-center ">
-                <a href="{{url('my_orders/running_orders')}}" class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-300-px h-sm-300-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
+                <a  data-aos="zoom-in-up" data-aos-easing="ease-in-out" data-aos="fade-up" href="{{url('my_orders/running_orders')}}" class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-300-px h-sm-300-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
                     <div class="d-flex flex-column flex-sm-column flex-md-row  text-decoration-none w-100 h-100  ">
                         <div
                             class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 h-xs-50 h-sm-50 h-md-100 bg-secondary d-flex justify-content-center align-items-center ">
@@ -116,7 +116,7 @@
                     </div>
 
                 </a>
-                <a href="{{url('my_orders/delivered_orders')}}"
+                <a  data-aos="zoom-in"  data-aos-easing="ease-in-out" href="{{url('my_orders/delivered_orders')}}"
                    class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-300-px h-sm-300-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
                     {{--                <img src="{{asset('assets/images/food_italian_italian_food.jpg')}}" alt="">--}}
 
@@ -259,7 +259,7 @@
                     </div>
 
                 </a>
-                <a href="{{url('my_orders/canceled_orders')}}"
+                <a  data-aos="zoom-in-down" data-aos-easing="ease-in-out" href="{{url('my_orders/canceled_orders')}}"
                    class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-300-px h-sm-300-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
                     {{--                <img src="{{asset('assets/images/food_italian_italian_food.jpg')}}" alt="">--}}
 

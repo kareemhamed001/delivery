@@ -29,7 +29,7 @@
         <div class="container d-flex flex-column   flex-wrap align-items-center justify-content-center py-2">
 
             <div class="d-flex container w-100 flex-column  justify-content-center ">
-                <a href="{{url('order')}}" class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-200-px h-sm-200-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
+                <a  data-aos="fade-right" data-aos-offset="200"  data-aos-duration="1000" href="{{url('order')}}" class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-200-px h-sm-200-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
                     <div class="d-flex flex-column flex-sm-column flex-md-row  text-decoration-none w-100 h-100  ">
                         <div
                             class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 h-xs-50 h-sm-50 h-md-100 bg-secondary d-flex justify-content-center align-items-center ">
@@ -128,7 +128,7 @@
                     </div>
 
                 </a>
-                <a href="{{url('running_orders')}}"
+                <a  data-aos="fade-left"  data-aos-offset="200"  data-aos-duration="1000" href="{{url('running_orders')}}"
                    class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-200-px h-sm-200-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
                     {{--                <img src="{{asset('assets/images/food_italian_italian_food.jpg')}}" alt="">--}}
 
@@ -271,8 +271,8 @@
         </div>
 
         <div class="container  d-flex  align-items-center justify-content-center flex-wrap">
-            <div class="card p-2 rounded-0 border-0 col-12 col-sm-12 col-md-4 col-lg-4 " style="height: 32rem;">
-                <div class="card-img img-fluid h-50">
+            <div data-aos="zoom-in-up"    class="card p-2 rounded-0 border-0 col-12 col-sm-12 col-md-4 col-lg-4 " style="height: 32rem;">
+                <div  class="card-img img-fluid h-50">
                     <svg class="w-100 h-100" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" width="618.67538"
                          height="487.32493" viewBox="0 0 618.67538 487.32493"
                          xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -404,7 +404,7 @@
                         {{__('homePage.serviceOneSubheading')}}                    </p>
                 </div>
             </div>
-            <div class="card p-2 rounded-0 border-0 col-12 col-sm-12 col-md-4 col-lg-4 " style="height: 32rem;">
+            <div data-aos="zoom-in"      class="card p-2 rounded-0 border-0 col-12 col-sm-12 col-md-4 col-lg-4 " style="height: 32rem;">
                 <div class="card-img img-fluid h-50">
                     <svg class="w-100 h-100" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" width="829"
                          height="364.82907" viewBox="0 0 829 364.82907" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -521,7 +521,7 @@
                         {{__('homePage.serviceTwoSubheading')}}                     </p>
                 </div>
             </div>
-            <div class="card p-2 rounded-0 border-0 col-12 col-sm-12 col-md-4 col-lg-4 " style="height: 32rem;">
+            <div data-aos="zoom-in-down" class="card p-2 rounded-0 border-0 col-12 col-sm-12 col-md-4 col-lg-4 " style="height: 32rem;">
                 <div class="card-img img-fluid h-50">
                     <svg class="w-100 h-100" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" width="906"
                          height="749.52408" viewBox="0 0 906 749.52408" xmlns:xlink="http://www.w3.org/1999/xlink">

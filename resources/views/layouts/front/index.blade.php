@@ -10,6 +10,9 @@
 
     <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
 {{--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">--}}
 {{--    <link href="E:\wamp64\www\delivery\node_modules\bootstrap\dist\css\bootstrap.css" rel="stylesheet">--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
@@ -18,7 +21,7 @@
     <title>Sonic</title>
     @livewireStyles
 </head>
-<body class="bg-white">
+<body class="bg-white vw-100  ">
 
 @include('layouts.front.navbar')
 <div id="done-toast" class="toast  fade position-fixed top-50 start-50 translate-middle @if(session('error')) bg-danger @elseif(session('done')) bg-success @endif " style="z-index: 1">
@@ -68,6 +71,15 @@
         }
     });
 </script>
+
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({
+        offset:200,
+        duration:800
+    });
+</script>
+
 @livewireScripts
 @yield('scripts')
 
