@@ -1,12 +1,27 @@
 @extends('layouts.front.index')
 @section('content')
 
-    <section class=" w-100 d-none d-sm-block vh-75  cover-section bg-dark overflow-hidden cover-container position-relative">
-        <div
-            class=" position-absolute bg-black bg-opacity-25 p-3  top-50 start-50 d-flex flex-column justify-content-center align-items-center translate-middle">
-            <h3 class="text-white font-weight-4  text-center"> {{ __('homePage.Deliver your order online') }}</h3>
-        </div>
-    </section>
+
+                <section class="w-100 d-none d-sm-flex vh-85   overflow-hidden position-relative bg-primary justify-content-end  ">
+                    <div style="z-index: 1"
+                        class=" position-absolute bg-black bg-opacity-20 w-100 h-100  top-50 start-50 d-flex flex-column justify-content-center align-items-center translate-middle">
+{{--                        <h3 class="text-white font-weight-4  text-center"> {{ __('homePage.Deliver your order online') }}</h3>--}}
+                    </div>
+
+                    <div  class="w-20 h-40 shadow-lg rounded-2 overflow-hidden position-absolute top-50 end-15  " style="transform: rotate(15deg);">
+                        <img class="w-100 h-100" src="{{asset('assets/images/lidye-1Shk_PkNkNw-unsplash.jpg')}}" alt="" style="object-fit: cover;object-position: top;">
+                    </div>
+                    <div style="transform: rotate(-10deg);" class="w-15 h-30 shadow-lg rounded-2 overflow-hidden position-absolute top-10 end-10  " >
+                        <img class="w-100 h-100" src="{{asset('assets/images/lily-banse--YHSwy6uqvk-unsplash.jpg')}}" alt="" style="object-fit: cover;object-position: top">
+                    </div>
+
+
+                    <div  style="transform: rotate(-1deg);" class="w-50 h-80  shadow-lg start-0 overflow-hidden  position-absolute top-10 start-5  ">
+                        <img class="w-100 h-100" src="{{asset('assets/images/emy-XoByiBymX20-unsplash.jpg')}}" alt="" style="object-fit: cover;object-position: top">
+                    </div>
+                </section>
+
+
 
     <section class=" w-100 d-block d-sm-none h-auto bg-transparent mt-5 pt-5 overflow-hidden position-relative">
         <div
@@ -29,7 +44,8 @@
         <div class="container d-flex flex-column   flex-wrap align-items-center justify-content-center py-2">
 
             <div class="d-flex container w-100 flex-column  justify-content-center ">
-                <a  data-aos="fade-right" data-aos-offset="200"  data-aos-duration="1000" href="{{url('order')}}" class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-200-px h-sm-200-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
+                <a data-aos="fade-right" data-aos-offset="200" data-aos-duration="1000" href="{{url('order')}}"
+                   class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-200-px h-sm-200-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
                     <div class="d-flex flex-column flex-sm-column flex-md-row  text-decoration-none w-100 h-100  ">
                         <div
                             class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 h-xs-50 h-sm-50 h-md-100 bg-secondary d-flex justify-content-center align-items-center ">
@@ -43,16 +59,16 @@
                                     d="M507.70923,287.04906,330.99207,481.85863a143.51972,143.51972,0,0,0,42.42871,53.42157L563.77637,322.82176A143.06762,143.06762,0,0,0,507.70923,287.04906Z"
                                     transform="translate(-182 -64.23796)" fill="#f2f2f2"/>
                                 <path d="M507,287.15147V173.238H414V286.79924a143.61506,143.61506,0,0,1,93,.35223Z"
-                                      transform="translate(-182 -64.23796)" fill="#d2490e"/>
+                                      transform="translate(-182 -64.23796)" fill="#FF7272FF"/>
                                 <path d="M414,555.67668V672.238h93V555.32445a143.61506,143.61506,0,0,1-93,.35223Z"
-                                      transform="translate(-182 -64.23796)" fill="#d2490e"/>
+                                      transform="translate(-182 -64.23796)" fill="#FF7272FF"/>
                                 <path
                                     d="M461,564.73828c-79.126,0-143.5-64.374-143.5-143.50049,0-79.126,64.374-143.5,143.5-143.5s143.5,64.374,143.5,143.5C604.5,500.36426,540.126,564.73828,461,564.73828Zm0-286.00049c-78.57471,0-142.5,63.9253-142.5,142.5S382.42529,563.73828,461,563.73828,603.5,499.8125,603.5,421.23779,539.57471,278.73779,461,278.73779Z"
                                     transform="translate(-182 -64.23796)"/>
                                 <path d="M360,421.238a101,101,0,0,0,101,101v-202A101,101,0,0,0,360,421.238Z"
                                       transform="translate(-182 -64.23796)" fill="#575a89"/>
                                 <path d="M461,320.238v202a101,101,0,0,0,0-202Z" transform="translate(-182 -64.23796)"
-                                      fill="#d2490e"/>
+                                      fill="#FF7272FF"/>
                                 <circle cx="279" cy="362" r="14" fill="#2f2e41"/>
                                 <polygon
                                     points="278.976 310.658 282.464 338.329 285.952 366 278.976 366 272 366 275.488 338.329 278.976 310.658"
@@ -93,10 +109,10 @@
                                 <circle cx="618.08888" cy="242.57682" r="27.5653" fill="#ffb9b9"/>
                                 <path
                                     d="M789.58781,356.69485s15.7516,9.18843,24.94-5.25053,38.06637,28.87793,38.06637,28.87793L860.47,514.21086s-14.439,1.31263-39.379,7.8758-36.75373-9.18843-36.75373-9.18843l-1.31263-76.13274,2.62526-35.4411-3.9379-28.87794,2.62527-17.06423Z"
-                                    transform="translate(-182 -64.23796)" fill="#d2490e"/>
+                                    transform="translate(-182 -64.23796)" fill="#FF7272FF"/>
                                 <path
                                     d="M760.70988,373.75908s-10.50107,2.62527-13.12634,21.00214-7.8758,73.50747-7.8758,73.50747l6.56317,32.81584s18.37687-14.439,24.94-7.8758l-3.9379-19.68951,3.9379-11.8137-11.8137-51.1927Z"
-                                    transform="translate(-182 -64.23796)" fill="#d2490e"/>
+                                    transform="translate(-182 -64.23796)" fill="#FF7272FF"/>
                                 <path
                                     d="M786.81693,334.38008s-2.47965,0-2.47965,9.18844-24.94,22.31476-24.94,22.31476-2.62526,3.9379-2.62526,14.439,0,35.4411,2.62526,43.3169,6.56317,34.12847,7.8758,36.75374,1.31264,14.439-1.31263,17.06424,6.56317,18.37686,9.18844,19.6895-9.18844,35.4411-2.62527,36.75373,18.37687-15.7516,22.31477-24.94,1.31263-136.51388,0-145.70231S786.81693,334.38008,786.81693,334.38008Z"
                                     transform="translate(-182 -64.23796)" fill="#575a89"/>
@@ -114,7 +130,7 @@
                                 <rect x="541" y="748.50032" width="286" height="1"/>
                                 <path
                                     d="M869.65845,340.94325s7.8758,1.31263,13.12634,10.50107,31.5032,69.56957,32.81583,72.19483,1.31263,38.06637,1.31263,38.06637-18.37686-10.50106-26.25266-3.9379L889.348,442.016l-17.06423-60.38113-2.62527-19.68951Z"
-                                    transform="translate(-182 -64.23796)" fill="#d2490e"/>
+                                    transform="translate(-182 -64.23796)" fill="#FF7272FF"/>
                             </svg>
                         </div>
 
@@ -128,7 +144,7 @@
                     </div>
 
                 </a>
-                <a  data-aos="fade-left"  data-aos-offset="200"  data-aos-duration="1000" href="{{url('running_orders')}}"
+                <a data-aos="fade-left" data-aos-offset="200" data-aos-duration="1000" href="{{url('running_orders')}}"
                    class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-200-px h-sm-200-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
                     {{--                <img src="{{asset('assets/images/food_italian_italian_food.jpg')}}" alt="">--}}
 
@@ -159,7 +175,7 @@
                                     transform="translate(-185.5 -267.58547)" fill="#fff"/>
                                 <path
                                     d="M592.00977,480.0937h-95.981L495.01123,450.583a8.85956,8.85956,0,0,1,9.93091-9.09863l55.85449,6.83936h.00684a31.29061,31.29061,0,0,1,31.2063,31.27Z"
-                                    transform="translate(-185.5 -267.58547)" fill="#d2490e"/>
+                                    transform="translate(-185.5 -267.58547)" fill="#FF7272FF"/>
                                 <path
                                     d="M549.23082,375.4145H482.28871a6.77712,6.77712,0,0,0-6.77894,6.77894v66.94211a6.77713,6.77713,0,0,0,6.77894,6.77895h66.94211a6.77714,6.77714,0,0,0,6.779-6.77895V382.19344A6.77713,6.77713,0,0,0,549.23082,375.4145Z"
                                     transform="translate(-185.5 -267.58547)" fill="#ccc"/>
@@ -183,10 +199,10 @@
                                     transform="translate(-185.5 -267.58547)" opacity="0.2"/>
                                 <path
                                     d="M625.81732,358.66188l-8.69674,22.72023a4.81688,4.81688,0,0,1-6.86086,2.47581l-21.13624-11.89627a13.37737,13.37737,0,0,1,9.63746-24.95856l23.6022,5.23464a4.81686,4.81686,0,0,1,3.45418,6.42415Z"
-                                    transform="translate(-185.5 -267.58547)" fill="#d2490e"/>
+                                    transform="translate(-185.5 -267.58547)" fill="#FF7272FF"/>
                                 <path
                                     d="M724.00977,414.9145l-33,15,4.33259,16.311a253.73547,253.73547,0,0,1,6.53976,96.64985v0l24.12766,5.03915,20-51-7-58Z"
-                                    transform="translate(-185.5 -267.58547)" fill="#d2490e"/>
+                                    transform="translate(-185.5 -267.58547)" fill="#FF7272FF"/>
                                 <path
                                     d="M788.75977,490.4145c-21.68213,0-39.35157,15.762-40.209,35.5h80.418C828.11133,506.17646,810.44189,490.4145,788.75977,490.4145Z"
                                     transform="translate(-185.5 -267.58547)" fill="#3f3d56"/>
@@ -202,8 +218,8 @@
                                     transform="translate(-185.5 -267.58547)" fill="#3f3d56"/>
                                 <path
                                     d="M753.1499,394.57447a23.54938,23.54938,0,0,1-8.80029,18.34,29.98827,29.98827,0,0,1-19.69971-41.3,23.50519,23.50519,0,0,1,28.5,22.96Z"
-                                    transform="translate(-185.5 -267.58547)" fill="#d2490e"/>
-                                <ellipse cx="265.00977" cy="231.82903" rx="14" ry="17" fill="#d2490e"/>
+                                    transform="translate(-185.5 -267.58547)" fill="#FF7272FF"/>
+                                <ellipse cx="265.00977" cy="231.82903" rx="14" ry="17" fill="#FF7272FF"/>
                                 <polygon
                                     points="450.071 292.005 462.331 292.005 468.164 260.208 450.069 260.209 450.071 292.005"
                                     fill="#ffb8b8"/>
@@ -225,7 +241,7 @@
                                     transform="translate(-185.5 -267.58547)" fill="#2f2e41"/>
                                 <path
                                     d="M603.78012,345.79386l-26-9s-16.322,12.54-8.481,43.64856a77.01209,77.01209,0,0,1-3.40009,48.32025,49.7787,49.7787,0,0,1-2.61889,5.53119s29,35,56,9l-10.5-50.5S625.28012,359.29386,603.78012,345.79386Z"
-                                    transform="translate(-185.5 -267.58547)" fill="#d2490e"/>
+                                    transform="translate(-185.5 -267.58547)" fill="#FF7272FF"/>
                                 <path
                                     d="M599.25474,332.702c-3.49562-5.23231-6.25435-12.48756-2.40565-17.46591,3.79907-4.91416,11.29215-4.19018,17.11054-6.36466,8.104-3.02867,12.80409-12.5493,11.33824-21.07564s-8.31031-15.59442-16.46405-18.48645-17.34839-1.95148-25.33312,1.37887c-9.82931,4.0997-18.26115,12.03028-21.79686,22.07625s-1.6456,22.10808,5.68929,29.82963c7.86381,8.27834,20.20556,10.48454,31.62276,10.35067"
                                     transform="translate(-185.5 -267.58547)" fill="#2f2e41"/>
@@ -237,8 +253,8 @@
                                     transform="translate(-185.5 -267.58547)" fill="#ffb8b8"/>
                                 <path
                                     d="M620.94513,369.15135l-5.827,23.61966a4.81688,4.81688,0,0,1-6.503,3.3034l-22.44252-9.19753a13.37737,13.37737,0,0,1,6.48437-25.957l24.06772,2.28255a4.81687,4.81687,0,0,1,4.22042,5.94888Z"
-                                    transform="translate(-185.5 -267.58547)" fill="#d2490e"/>
-                                <circle cx="519.00977" cy="136.82903" r="7" fill="#d2490e"/>
+                                    transform="translate(-185.5 -267.58547)" fill="#FF7272FF"/>
+                                <circle cx="519.00977" cy="136.82903" r="7" fill="#FF7272FF"/>
                                 <path
                                     d="M1014.5,631.4145a1.00308,1.00308,0,0,1-1,1h-827a1,1,0,0,1,0-2h827A1.00308,1.00308,0,0,1,1014.5,631.4145Z"
                                     transform="translate(-185.5 -267.58547)" fill="#3f3d56"/>
@@ -271,8 +287,9 @@
         </div>
 
         <div class="container  d-flex  align-items-center justify-content-center flex-wrap">
-            <div data-aos="zoom-in-up"    class="card p-2 rounded-0 border-0 col-12 col-sm-12 col-md-4 col-lg-4 " style="height: 32rem;">
-                <div  class="card-img img-fluid h-50">
+            <div data-aos="zoom-in-up" class="card p-2 rounded-0 border-0 col-12 col-sm-12 col-md-4 col-lg-4 "
+                 style="height: 32rem;">
+                <div class="card-img img-fluid h-50">
                     <svg class="w-100 h-100" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" width="618.67538"
                          height="487.32493" viewBox="0 0 618.67538 487.32493"
                          xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -359,7 +376,7 @@
                             transform="translate(-290.66231 -206.33753)" fill="#fff"/>
                         <path
                             d="M591.05446,264.18446a.86575.86575,0,0,0-.2214.02851l-63.15212,16.33171a.89268.89268,0,0,0-.66885.86406v83.89114a.89707.89707,0,0,0,.70667.87338l104.25777,22.18233a.90066.90066,0,0,0,.455-.02211l61.9433-19.56046a.88761.88761,0,0,0,.62317-.85883l-.69416-86.03705a.89125.89125,0,0,0-.74827-.87337L591.19876,264.19609A.92856.92856,0,0,0,591.05446,264.18446Z"
-                            transform="translate(-290.66231 -206.33753)" fill="#d2490e"/>
+                            transform="translate(-290.66231 -206.33753)" fill="#FF7272FF"/>
                         <path
                             d="M700.55859,281.827a7.13278,7.13278,0,0,0-5.98809-6.995L592.21342,258.02377a7.13207,7.13207,0,0,0-2.94935.13107l-23.988,6.20258-13.76358,3.563-25.40011,6.566a7.15519,7.15519,0,0,0-5.35647,6.92351v83.89238a7.18645,7.18645,0,0,0,5.66035,6.989L630.674,394.47409a6.94672,6.94672,0,0,0,1.48957.15485,7.1363,7.1363,0,0,0,2.151-.32766l61.94214-19.561a7.1206,7.1206,0,0,0,4.999-6.87587Zm-4.83811,91.20915-61.94218,19.561a5.43668,5.43668,0,0,1-2.72889.13106L526.78567,370.54566a5.39079,5.39079,0,0,1-4.24228-5.2433V281.41a5.36856,5.36856,0,0,1,3.51539-5.03478,4.454,4.454,0,0,1,.50047-.15492l26.87182-6.94729,15.89069-4.11122,20.38918-5.27306a5.11131,5.11131,0,0,1,1.34061-.17281,5.30328,5.30328,0,0,1,.86992.0715l102.35708,16.80832a5.37814,5.37814,0,0,1,3.89673,2.81825,5.36322,5.36322,0,0,1,.59583,2.425l.69711,86.03741A5.34366,5.34366,0,0,1,695.72048,373.03618Z"
                             transform="translate(-290.66231 -206.33753)" fill="#3f3d56"/>
@@ -381,7 +398,7 @@
                         <path
                             d="M908.147,693.37861H291.853a1.19069,1.19069,0,0,1,0-2.38137H908.147a1.19068,1.19068,0,0,1,0,2.38137Z"
                             transform="translate(-290.66231 -206.33753)" fill="#cacaca"/>
-                        <circle cx="120.11268" cy="324.71266" r="35.81102" fill="#d2490e"/>
+                        <circle cx="120.11268" cy="324.71266" r="35.81102" fill="#FF7272FF"/>
                         <path
                             d="M405.88962,549.68816a3.98231,3.98231,0,0,1-3.18646-1.59372l-9.7698-13.0266a3.98339,3.98339,0,1,1,6.37358-4.77986l6.39173,8.52166L422.115,514.18545a3.98356,3.98356,0,1,1,6.629,4.41936L409.20446,547.9142a3.98517,3.98517,0,0,1-3.204,1.77267C405.96354,549.68752,405.92658,549.68816,405.88962,549.68816Z"
                             transform="translate(-290.66231 -206.33753)" fill="#fff"/>
@@ -404,7 +421,8 @@
                         {{__('homePage.serviceOneSubheading')}}                    </p>
                 </div>
             </div>
-            <div data-aos="zoom-in"      class="card p-2 rounded-0 border-0 col-12 col-sm-12 col-md-4 col-lg-4 " style="height: 32rem;">
+            <div data-aos="zoom-in" class="card p-2 rounded-0 border-0 col-12 col-sm-12 col-md-4 col-lg-4 "
+                 style="height: 32rem;">
                 <div class="card-img img-fluid h-50">
                     <svg class="w-100 h-100" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" width="829"
                          height="364.82907" viewBox="0 0 829 364.82907" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -428,7 +446,7 @@
                             transform="translate(-185.5 -267.58547)" fill="#fff"/>
                         <path
                             d="M592.00977,480.0937h-95.981L495.01123,450.583a8.85956,8.85956,0,0,1,9.93091-9.09863l55.85449,6.83936h.00684a31.29061,31.29061,0,0,1,31.2063,31.27Z"
-                            transform="translate(-185.5 -267.58547)" fill="#d2490e"/>
+                            transform="translate(-185.5 -267.58547)" fill="#FF7272FF"/>
                         <path
                             d="M549.23082,375.4145H482.28871a6.77712,6.77712,0,0,0-6.77894,6.77894v66.94211a6.77713,6.77713,0,0,0,6.77894,6.77895h66.94211a6.77714,6.77714,0,0,0,6.779-6.77895V382.19344A6.77713,6.77713,0,0,0,549.23082,375.4145Z"
                             transform="translate(-185.5 -267.58547)" fill="#ccc"/>
@@ -452,10 +470,10 @@
                             transform="translate(-185.5 -267.58547)" opacity="0.2"/>
                         <path
                             d="M625.81732,358.66188l-8.69674,22.72023a4.81688,4.81688,0,0,1-6.86086,2.47581l-21.13624-11.89627a13.37737,13.37737,0,0,1,9.63746-24.95856l23.6022,5.23464a4.81686,4.81686,0,0,1,3.45418,6.42415Z"
-                            transform="translate(-185.5 -267.58547)" fill="#d2490e"/>
+                            transform="translate(-185.5 -267.58547)" fill="#FF7272FF"/>
                         <path
                             d="M724.00977,414.9145l-33,15,4.33259,16.311a253.73547,253.73547,0,0,1,6.53976,96.64985v0l24.12766,5.03915,20-51-7-58Z"
-                            transform="translate(-185.5 -267.58547)" fill="#d2490e"/>
+                            transform="translate(-185.5 -267.58547)" fill="#FF7272FF"/>
                         <path
                             d="M788.75977,490.4145c-21.68213,0-39.35157,15.762-40.209,35.5h80.418C828.11133,506.17646,810.44189,490.4145,788.75977,490.4145Z"
                             transform="translate(-185.5 -267.58547)" fill="#3f3d56"/>
@@ -471,8 +489,8 @@
                             transform="translate(-185.5 -267.58547)" fill="#3f3d56"/>
                         <path
                             d="M753.1499,394.57447a23.54938,23.54938,0,0,1-8.80029,18.34,29.98827,29.98827,0,0,1-19.69971-41.3,23.50519,23.50519,0,0,1,28.5,22.96Z"
-                            transform="translate(-185.5 -267.58547)" fill="#d2490e"/>
-                        <ellipse cx="265.00977" cy="231.82903" rx="14" ry="17" fill="#d2490e"/>
+                            transform="translate(-185.5 -267.58547)" fill="#FF7272FF"/>
+                        <ellipse cx="265.00977" cy="231.82903" rx="14" ry="17" fill="#FF7272FF"/>
                         <polygon
                             points="450.071 292.005 462.331 292.005 468.164 260.208 450.069 260.209 450.071 292.005"
                             fill="#ffb8b8"/>
@@ -494,7 +512,7 @@
                             transform="translate(-185.5 -267.58547)" fill="#2f2e41"/>
                         <path
                             d="M603.78012,345.79386l-26-9s-16.322,12.54-8.481,43.64856a77.01209,77.01209,0,0,1-3.40009,48.32025,49.7787,49.7787,0,0,1-2.61889,5.53119s29,35,56,9l-10.5-50.5S625.28012,359.29386,603.78012,345.79386Z"
-                            transform="translate(-185.5 -267.58547)" fill="#d2490e"/>
+                            transform="translate(-185.5 -267.58547)" fill="#FF7272FF"/>
                         <path
                             d="M599.25474,332.702c-3.49562-5.23231-6.25435-12.48756-2.40565-17.46591,3.79907-4.91416,11.29215-4.19018,17.11054-6.36466,8.104-3.02867,12.80409-12.5493,11.33824-21.07564s-8.31031-15.59442-16.46405-18.48645-17.34839-1.95148-25.33312,1.37887c-9.82931,4.0997-18.26115,12.03028-21.79686,22.07625s-1.6456,22.10808,5.68929,29.82963c7.86381,8.27834,20.20556,10.48454,31.62276,10.35067"
                             transform="translate(-185.5 -267.58547)" fill="#2f2e41"/>
@@ -506,8 +524,8 @@
                             transform="translate(-185.5 -267.58547)" fill="#ffb8b8"/>
                         <path
                             d="M620.94513,369.15135l-5.827,23.61966a4.81688,4.81688,0,0,1-6.503,3.3034l-22.44252-9.19753a13.37737,13.37737,0,0,1,6.48437-25.957l24.06772,2.28255a4.81687,4.81687,0,0,1,4.22042,5.94888Z"
-                            transform="translate(-185.5 -267.58547)" fill="#d2490e"/>
-                        <circle cx="519.00977" cy="136.82903" r="7" fill="#d2490e"/>
+                            transform="translate(-185.5 -267.58547)" fill="#FF7272FF"/>
+                        <circle cx="519.00977" cy="136.82903" r="7" fill="#FF7272FF"/>
                         <path
                             d="M1014.5,631.4145a1.00308,1.00308,0,0,1-1,1h-827a1,1,0,0,1,0-2h827A1.00308,1.00308,0,0,1,1014.5,631.4145Z"
                             transform="translate(-185.5 -267.58547)" fill="#3f3d56"/>
@@ -521,7 +539,8 @@
                         {{__('homePage.serviceTwoSubheading')}}                     </p>
                 </div>
             </div>
-            <div data-aos="zoom-in-down" class="card p-2 rounded-0 border-0 col-12 col-sm-12 col-md-4 col-lg-4 " style="height: 32rem;">
+            <div data-aos="zoom-in-down" class="card p-2 rounded-0 border-0 col-12 col-sm-12 col-md-4 col-lg-4 "
+                 style="height: 32rem;">
                 <div class="card-img img-fluid h-50">
                     <svg class="w-100 h-100" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" width="906"
                          height="749.52408" viewBox="0 0 906 749.52408" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -532,16 +551,16 @@
                             d="M507.70923,287.04906,330.99207,481.85863a143.51972,143.51972,0,0,0,42.42871,53.42157L563.77637,322.82176A143.06762,143.06762,0,0,0,507.70923,287.04906Z"
                             transform="translate(-182 -64.23796)" fill="#f2f2f2"/>
                         <path d="M507,287.15147V173.238H414V286.79924a143.61506,143.61506,0,0,1,93,.35223Z"
-                              transform="translate(-182 -64.23796)" fill="#d2490e"/>
+                              transform="translate(-182 -64.23796)" fill="#FF7272FF"/>
                         <path d="M414,555.67668V672.238h93V555.32445a143.61506,143.61506,0,0,1-93,.35223Z"
-                              transform="translate(-182 -64.23796)" fill="#d2490e"/>
+                              transform="translate(-182 -64.23796)" fill="#FF7272FF"/>
                         <path
                             d="M461,564.73828c-79.126,0-143.5-64.374-143.5-143.50049,0-79.126,64.374-143.5,143.5-143.5s143.5,64.374,143.5,143.5C604.5,500.36426,540.126,564.73828,461,564.73828Zm0-286.00049c-78.57471,0-142.5,63.9253-142.5,142.5S382.42529,563.73828,461,563.73828,603.5,499.8125,603.5,421.23779,539.57471,278.73779,461,278.73779Z"
                             transform="translate(-182 -64.23796)"/>
                         <path d="M360,421.238a101,101,0,0,0,101,101v-202A101,101,0,0,0,360,421.238Z"
                               transform="translate(-182 -64.23796)" fill="#575a89"/>
                         <path d="M461,320.238v202a101,101,0,0,0,0-202Z" transform="translate(-182 -64.23796)"
-                              fill="#d2490e"/>
+                              fill="#FF7272FF"/>
                         <circle cx="279" cy="362" r="14" fill="#2f2e41"/>
                         <polygon
                             points="278.976 310.658 282.464 338.329 285.952 366 278.976 366 272 366 275.488 338.329 278.976 310.658"
@@ -582,10 +601,10 @@
                         <circle cx="618.08888" cy="242.57682" r="27.5653" fill="#ffb9b9"/>
                         <path
                             d="M789.58781,356.69485s15.7516,9.18843,24.94-5.25053,38.06637,28.87793,38.06637,28.87793L860.47,514.21086s-14.439,1.31263-39.379,7.8758-36.75373-9.18843-36.75373-9.18843l-1.31263-76.13274,2.62526-35.4411-3.9379-28.87794,2.62527-17.06423Z"
-                            transform="translate(-182 -64.23796)" fill="#d2490e"/>
+                            transform="translate(-182 -64.23796)" fill="#FF7272FF"/>
                         <path
                             d="M760.70988,373.75908s-10.50107,2.62527-13.12634,21.00214-7.8758,73.50747-7.8758,73.50747l6.56317,32.81584s18.37687-14.439,24.94-7.8758l-3.9379-19.68951,3.9379-11.8137-11.8137-51.1927Z"
-                            transform="translate(-182 -64.23796)" fill="#d2490e"/>
+                            transform="translate(-182 -64.23796)" fill="#FF7272FF"/>
                         <path
                             d="M786.81693,334.38008s-2.47965,0-2.47965,9.18844-24.94,22.31476-24.94,22.31476-2.62526,3.9379-2.62526,14.439,0,35.4411,2.62526,43.3169,6.56317,34.12847,7.8758,36.75374,1.31264,14.439-1.31263,17.06424,6.56317,18.37686,9.18844,19.6895-9.18844,35.4411-2.62527,36.75373,18.37687-15.7516,22.31477-24.94,1.31263-136.51388,0-145.70231S786.81693,334.38008,786.81693,334.38008Z"
                             transform="translate(-182 -64.23796)" fill="#575a89"/>
@@ -603,7 +622,7 @@
                         <rect x="541" y="748.50032" width="286" height="1"/>
                         <path
                             d="M869.65845,340.94325s7.8758,1.31263,13.12634,10.50107,31.5032,69.56957,32.81583,72.19483,1.31263,38.06637,1.31263,38.06637-18.37686-10.50106-26.25266-3.9379L889.348,442.016l-17.06423-60.38113-2.62527-19.68951Z"
-                            transform="translate(-182 -64.23796)" fill="#d2490e"/>
+                            transform="translate(-182 -64.23796)" fill="#FF7272FF"/>
                     </svg>
                 </div>
                 <div class="card-text text-center">
@@ -616,29 +635,28 @@
         </div>
     </section>
 
-
-
 @endsection
 @section('scripts')
     <script>
-        $(document).ready(function (){
+        $(document).ready(function () {
             $(window).scrollTop()
-            if ($(window).scrollTop()){
+            if ($(window).scrollTop()) {
                 $("nav").addClass('navbar-dark bg-primary p-2')
                 $("nav").removeClass('p-1 navbar-light ');
-            }else {
-                $("nav").addClass(' p-1 navbar-light ');
-                $("nav").removeClass('navbar-dark bg-primary p-2');
+            } else {
+
+                $("nav").addClass(' p-1 navbar-dark ');
+                $("nav").removeClass('bg-primary p-2');
             }
 
-            $(window).on('scroll',function (){
-                if ($(window).scrollTop()){
+            $(window).on('scroll', function () {
+                if ($(window).scrollTop()) {
                     $("nav").addClass('navbar-dark bg-primary p-2')
                     $("nav").removeClass('p-1 navbar-light ');
-                }else {
+                } else {
 
-                    $("nav").addClass(' p-1 navbar-light ');
-                    $("nav").removeClass('navbar-dark bg-primary p-2');
+                    $("nav").addClass(' p-1 navbar-dark ');
+                    $("nav").removeClass('bg-primary p-2');
                 }
             });
         });

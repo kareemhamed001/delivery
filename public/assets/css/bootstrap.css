@@ -8813,6 +8813,12 @@ textarea.form-control-lg {
 
 .h-75 {
     height: 75% !important;
+}.h-80 {
+    height: 80% !important;
+}.h-85{
+    height: 85% !important;
+}.h-90 {
+    height: 90% !important;
 }
 
 .h-100 {
@@ -8891,6 +8897,12 @@ textarea.form-control-lg {
 
 .vh-80 {
     height: 80vh !important;
+}.vh-85 {
+    height: 85vh !important;
+}.vh-90 {
+    height: 90vh !important;
+}.vh-95 {
+    height: 95vh !important;
 }
 
 .vh-100 {
@@ -13217,6 +13229,7 @@ textarea.form-control-lg {
 .cover-section {
     background-image: url("../images/pexels-cottonbro-4604666.jpg");
     background-attachment: fixed;
+    background-repeat: no-repeat;
     background-size: cover;
 }
 
