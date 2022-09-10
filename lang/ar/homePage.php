@@ -6,6 +6,10 @@ return[
     'My orders'=>'طلباتي',
     'logout'=>'تسجيل الخروج',
     'login'=>'تسجيل الدخول',
+    'CoverHeader'=>'اطلب والتوصيل علينا',
+    'CoverSubheader'=>'اسرع دليفري , <br> اول موقع دليفري في السويس',
+    'ContactUs'=>'تواصل معنا',
+
     'Deliver your order online'=>'وصل طلبك اونلابن',
     'sectionOneHeading'=>'الرئيسيه',
     'sectionOneSubheading'=>'الرئيسيه',

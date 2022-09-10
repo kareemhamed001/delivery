@@ -66,7 +66,7 @@
     var activePage =String( window.location.pathname);
     activePage=activePage.split('/')
     const navLinks = document.querySelectorAll('ul li a.nav-link').forEach(link => {
-        if (link.href.split('/').slice(-1)==(`${activePage[2]}`)|| link.href.split('/').slice(-2)==(`${activePage[2]}`)) {
+        if (link.href.split('/').slice(-1)==(`${activePage[2]}`)|| link.href.split('/').slice(-2)==(`${activePage[2]}`) ) {
             link.classList.add('active');
         }
     });
@@ -75,12 +75,13 @@
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
     AOS.init({
-        offset:200,
+        offset:100,
         duration:800
     });
 </script>
 
 @livewireScripts
+@stack('scripts')
 @yield('scripts')
 
 

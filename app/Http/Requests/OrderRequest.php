@@ -30,7 +30,7 @@ class OrderRequest extends FormRequest
             'toAddress'=>['required','string','max:255'],
             'date'=>['required','date'],
             'time'=>['required'],
-            'notes'=>['nullable'],
+            'notes'=>['nullable','max:1000'],
         ];
     }
 }

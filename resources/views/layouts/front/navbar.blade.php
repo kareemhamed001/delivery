@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg  navbar-dark bg-primary p-2  w-100 position-fixed top-0" style="transition: 400ms;z-index: 1000">
+<nav class="navbar navbar-expand-lg  navbar-dark bg-primary p-2  w-100 sticky-top" style="transition: 400ms;z-index: 1000">
     <div class=" container-lg container-xl  d-flex justify-content-between">
         <a class="navbar-brand w-auto col-6 d-flex justify-content-start font-monospace font-size-2 font-weight-4"
            href="{{url('home')}}">

@@ -4,6 +4,11 @@ return[
     'Home'=>'Home',
     'Make order'=>'Make order',
     'My orders'=>'My orders',
+
+    'CoverHeader'=>'You order ,We deliver',
+    'CoverSubheader'=>'The fastest delivery ,<br> The first delivery website in suez',
+    'ContactUs'=>'Contact Us',
+
     'Deliver your order online'=>'Deliver your order online',
 
     'sectionOneHeading'=>'Lorem ipsum dolor sit amet.',

@@ -5,51 +5,38 @@
 /*    background-attachment: fixed;*/
 /*}*/
 
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+*{
+    font-family: 'Cairo', sans-serif;
+}
+
 :root {
-    --primary: #9B0000;
-    --primary-hover: #FF7272FF;
-    --secondry: #FF7272;
-    --secondry-hover: #03a9f4;
+    --primary: #242582;
+    --primary-hover: #2F2F72;
+    --test:#1CD6CE;
+    --test2:#B9FFF8;
+    --test3:#277BC0;
+    --test4: #C70039;
+    --test5:rgb(53 ,87 ,100);
+    --test6:#355764;
+    --test7:#355764;
+    --secondry: #553D67;
+    --third-color: #F64C72;
+    --secondry-hover: #ff809c;
 
-    --bs-primary-rgb: 0, 150, 80;
-    --bs-primary-hover-rgb: 255, 119, 0;
-    --bs-secondry-rgb: 255, 114, 114;
-    --bs-secondry-hover-rgb: 3, 169, 244;
+    --bs-primary-rgb: 255 ,87, 34;
+    --bs-primary-hover-rgb: 47, 47, 114;
+    --bs-secondry-rgb: 53 ,87 ,100;
+    --bs-secondry-hover-rgb: 255, 128, 156;
 
-    /*--checkboxBg: url(/images/talabat/filter-checkbox-checked.svg) left top no-repeat;*/
-    /*--radioBg: url(/images/talabat/radio-b-selected.svg) left top no-repeat;*/
-    --btn-green: #00A53C;
-    --btn-green-hover: #178917;
-    --aHover: #038432;
-    --gray-border: #E0E0E0;
-    --hover-link-color: #ff5a00;
-    --orange-color: #ff5a00;
-    --orange-color-border: rgba(224, 141, 4, 0.28);
-    --orange-text: 224, 141, 4;
-    --black-color: 0, 0, 0;
-    --gem-tier-1: #ffbf04;
-    --gem-tier-2: #ff5a00;
-    --gem-tier-3: #ff3c00;
-    --gem-tier-4: #9700d5;
-    --gem-tier-text-1: #DFA805;
-    --gem-tier-text-2: #ff5a00;
-    --gem-tier-text-3: #ff3c00;
-    --gem-tier-text-4: #9700d5;
-    --neutral-black: #262626;
-    --neutral-grey: #838383;
-    --promo-pink: #f90067;
-    --neutral-10: #e5e5e5;
-    --vertical-yellow: #f4aa33;
-    --vertical-orange: #ff493d;
-    --vertical-pink: #e93c82;
-    --vertical-blue: #3d76ed;
-    --footer-bg: #262626;
-    --message-bg: #e5e7ff;
-    --mapFirst-border: #a6a6a6;
+    --bs-blue-rgb:66, 103, 178;
+    --bs-green-rgb:37, 211,102;
+
+
 }
 
 .bg-primary {
-    --bs-bg-opacity: 0.95;
+    --bs-bg-opacity: 1;
     background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
 }
 
@@ -77,7 +64,19 @@
     --bs-text-opacity: 1;
     color: rgba(var(--bs-secondry-rgb), var(--bs-text-opacity)) !important;
 }
+.text-blue {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-blue-rgb), var(--bs-text-opacity)) !important;
+}
+.text-green {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-green-rgb), var(--bs-text-opacity)) !important;
+}
 
+.font-size-icon{
+    font-size: 3.1rem !important;
+
+}
 
 @media (min-width: 576px) {
 
@@ -1966,4 +1965,20 @@
     --bs-bg-opacity: 0.100;
 }
 
+.font-roboto {
+    font-family: 'Roboto', sans-serif !important;
 
+
+}
+
+.font-cairo {
+    font-family: 'Cairo', sans-serif !important;
+}
+
+.font-lato {
+    font-family: 'Lato', sans-serif !important;
+}
+
+.font-tajawal {
+    font-family: 'Tajawal', sans-serif !important;
+}
