@@ -17,15 +17,18 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->string('description');
-            $table->string('from_address');
-            $table->string('to_address');
+            $table->string('description',255);
+            $table->string('from_address',255);
+            $table->string('to_address',255);
             $table->text('notes')->nullable();
-            $table->tinyInteger('accepted')->default(0);
-            $table->tinyInteger('finished')->default(0);
-            $table->dateTime('delivery_time');
             $table->unsignedBigInteger('accepted_by')->nullable();
             $table->unsignedBigInteger('finished_by')->nullable();
+            $table->tinyInteger('accepted')->default(0);
+            $table->tinyInteger('finished')->default(0);
+            $table->tinyInteger('canceled')->default(0);
+            $table->string('failure_reason')->nullable();
+            $table->dateTime('delivery_time');
+
             $table->timestamps();
 
             $table->foreign('user_id')->references('users')->on('id')->cascadeOnDelete();
