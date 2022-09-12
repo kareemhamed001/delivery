@@ -6546,7 +6546,7 @@ textarea.form-control-lg {
     }
 
     .modal-dialog {
-        max-width: var(--bs-modal-width);
+        /*max-width: var(--bs-modal-width);*/
         margin-right: auto;
         margin-left: auto;
     }
@@ -8702,6 +8702,19 @@ textarea.form-control-lg {
     max-width: 100% !important;
 }
 
+.vw-50 {
+    width: 50vw !important;
+}.vw-60 {
+    width: 60vw !important;
+}.vw-70 {
+    width: 70vw !important;
+}.vw-80 {
+    width: 80vw !important;
+}.vw-90 {
+    width: 90vw !important;
+}.vw-100 {
+    width: 100vw !important;
+}
 .vw-100 {
     width: 100vw !important;
 }

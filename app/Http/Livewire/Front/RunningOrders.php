@@ -56,8 +56,6 @@ class RunningOrders extends Component
                 $this->time=$order->time;
                 $this->notes=$order->notes;
 
-
-
             }else{
 
             }
@@ -100,7 +98,7 @@ class RunningOrders extends Component
             {
                 $query->where('name','like','%'.$this->term.'%')->orWhere('id','like','%'.$this->term.'%') ;
             })
-            ->paginate(10);
+            ->orderBy('delivery_time','asc')->paginate(10);
         return view('livewire.front.running-orders',compact( 'orders'));
     }
 }

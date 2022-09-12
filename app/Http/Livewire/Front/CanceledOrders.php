@@ -96,7 +96,7 @@ class CanceledOrders extends Component
             {
                 $query->where('name','like','%'.$this->term.'%')->orWhere('id','like','%'.$this->term.'%') ;
             })
-            ->paginate(10);
+            ->orderBy('delivery_time','desc')->paginate(10);
         return view('livewire.front.canceled-orders',compact('orders'));
     }
 }

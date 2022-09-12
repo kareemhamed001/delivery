@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware(['web','role','localeSessionRedirect','localizationRedirect','localeViewPath'])
 
-                ->prefix(LaravelLocalization::setLocale().'/inc')
+                ->prefix(LaravelLocalization::setLocale().'/driver')
                 ->group(base_path('routes/driverRoutes.php'));
 
 

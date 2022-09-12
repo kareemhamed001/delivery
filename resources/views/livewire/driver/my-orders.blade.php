@@ -51,20 +51,20 @@
                                 <th data-bs-toggle="modal"
                                     data-bs-target="#showOrderModal" wire:click="showOrder({{$order->id}})">{{$order->id}}</th>
                                 <td data-bs-toggle="modal"
-                                        data-bs-target="#showOrderModal" wire:click="showOrder({{$order->id}})">{{$order->name}}</td>
+                                    data-bs-target="#showOrderModal" wire:click="showOrder({{$order->id}})">{{$order->name}}</td>
 
                                 <td data-bs-toggle="modal"
-                                        data-bs-target="#showOrderModal" wire:click="showOrder({{$order->id}})">{{$order->from_address}}</td>
+                                    data-bs-target="#showOrderModal" wire:click="showOrder({{$order->id}})">{{$order->from_address}}</td>
                                 <td data-bs-toggle="modal"
-                                        data-bs-target="#showOrderModal" wire:click="showOrder({{$order->id}})">{{$order->to_address}}</td>
+                                    data-bs-target="#showOrderModal" wire:click="showOrder({{$order->id}})">{{$order->to_address}}</td>
                                 <td data-bs-toggle="modal"
-                                        data-bs-target="#showOrderModal" wire:click="showOrder({{$order->id}})">{{$order->phone}}01021638451</td>
+                                    data-bs-target="#showOrderModal" wire:click="showOrder({{$order->id}})">{{$order->phone}}01021638451</td>
                                 <td data-bs-toggle="modal"
-                                        data-bs-target="#showOrderModal" wire:click="showOrder({{$order->id}})">{{date('H:i a' ,strtotime($order->delivery_time)) }}</td>
+                                    data-bs-target="#showOrderModal" wire:click="showOrder({{$order->id}})">{{date('H:i a' ,strtotime($order->delivery_time)) }}</td>
 
 
                                 <td>
-                                    <button class="btn btn-sm btn-success" wire:click="accept({{$order->id}})">Accept</button>
+                                    <button class="btn btn-sm btn-danger" wire:click="accept({{$order->id}})">Cancel</button>
                                 </td>
 
                             </tr>
