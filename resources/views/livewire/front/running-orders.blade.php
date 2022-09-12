@@ -3,7 +3,6 @@
 
     <div class="d-flex flex-column align-items-center m-5 pt-5  ">
 
-
         <section
             class=" vw-100 m-0 px-0  min-vh-100 d-flex justify-content-center  bg-white position-relative  ">
 
@@ -27,6 +26,27 @@
 
                     @forelse($orders as $order)
 
+                            <?php
+                            $now = \Carbon\Carbon::now();
+
+                            $created_at = \Carbon\Carbon::parse($order->delivery_time);
+                            $diffHuman = $created_at->diffForHumans($now);
+                            $diffHour = $created_at->diffInHours($now);
+                            $diffMinutes = $created_at->diffInMinutes($now);
+
+                            $isCurrentHour = $created_at->isCurrentHour();
+                            $isCurrentDay = $created_at->isCurrentDay();
+                            $isLastHour = $created_at->isLastHour();
+                            $isLastMinute = $created_at->isLastMinute();
+                            $isPast = $created_at->isPast();
+                            if ($isPast) {
+                                \App\Models\Order::find($order->id)->update([
+                                    'canceled' => '1',
+                                    'failure_reason' => 'Failure',
+                                ]);
+                            }
+                            ?>
+
                         <div
                             class="card my-1 col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4  position-relative p-1 font-size-card font-weight-2 border-1 "
                             style="min-height: 500px;max-height: 600px;height: auto">
@@ -45,19 +65,19 @@
                                     <div class="list-group m-0  w-100">
                                         <div class="list-group-item col-12 p-1 m-0">
                                             <i class="fa-regular fa-calendar-days"></i> {{__('myOrdersPage.Date')}}:
-                                            <span class="">{{date('d/m/Y', strtotime($order->date)) }} </span>
+                                            {{--                                            <span class="">{{date('d/m/Y', strtotime($order->delivery_time)) }} </span>--}}
+                                            <span class="">{{$diffHuman }} </span>
                                         </div>
-                                        <div class="list-group-item col-12 p-1 m-0">
-                                            <i class="fa-regular fa-clock"></i> {{__('myOrdersPage.Time')}}:
-                                            <span class="">{{date('h:i a ', strtotime($order->time)) }}</span>
-                                        </div>
+                                        {{--                                        <div class="list-group-item col-12 p-1 m-0">--}}
+                                        {{--                                            <i class="fa-regular fa-clock"></i> {{__('myOrdersPage.Time')}}:--}}
+                                        {{--                                            <span class="">{{date('h:i a ', strtotime($order->delivery_time)) }}</span>--}}
+                                        {{--                                        </div>--}}
                                         <div class="list-group-item col-12 p-1 m-0">
                                             <i class="fa-solid fa-phone"></i> {{__('myOrdersPage.DriverPhone')}}
                                             : {{$order->user->id}}0102163845
                                         </div>
                                     </div>
                                 </div>
-
                                 <svg class="w-100 h-100" style="object-fit: scale-down"
                                      xmlns="http://www.w3.org/2000/svg"
                                      data-name="Layer 1" width="967.97244" height="529" viewBox="80 0 967.97244 529"
@@ -158,65 +178,41 @@
                                     <i class="fa-solid fa-right-to-bracket"></i> {{__('myOrdersPage.ToAddress')}} :
                                     <span class="">{{$order->to_address}}</span>
                                 </div>
-
-
                             </div>
 
-                            <div class="card-footer">
-                                    <?php
-
-                                    $now = \Carbon\Carbon::now();
-
-                                    $created_at_time = \Carbon\Carbon::parse($order->time);
-                                    $diffHumanTime = $created_at_time->diffForHumans($now);
-                                    $diffHour = $created_at_time->diffInHours($now);
-                                    $diffMinutes = $created_at_time->diffInMinutes($now);
+                            <div class="card-footer ">
 
 
-                                    $isCurrentHour = $created_at_time->isCurrentHour($now);
-                                    $isLastHour = $created_at_time->isLastHour();
-                                    $isLastMinute = $created_at_time->isLastMinute();
-                                    $isPastTime = $created_at_time->isPast();
-
-                                    $created_at_date = \Carbon\Carbon::parse($order->date);
-                                    $diffHumanDate = $created_at_date->diffForHumans($now);
-                                    $isCurrentDay = $created_at_date->isCurrentDay();
-                                    $isLastDay = $created_at_date->isLastDay();
-                                    $isPastDate = $created_at_date->isPast();
-
-//                                    print_r('day:'.$isLastDay);
-//                                    print_r('hour:'.$diffHour);
-//                                    print_r('minute:'.$isLastMinute);
-
-                                    ?>
-
-
-{{--                                {{$isPastDate}}--}}
-{{--                                @if(   (($isCurrentHour&&!$isPastDate && !$isPastTime && $isCurrentDay ) )  )--}}
-
-{{--                                    <p class="col-12 text-center">You cant edit or delete this order, We are on the way</p>--}}
-{{--                                @elseif( ($diffHour>=0 &&!$isPastDate&&!$isPastTime  ))--}}
-
+                                @if(!$isPast && $diffHour <=1 && $diffMinutes<=59)
 
                                     <div class="btn-group col-12">
-                                        <button class="btn btn-secondary col-6 rounded-0" data-bs-toggle="modal"
-                                                data-bs-target="#addBrandModal">Delete
-                                        </button>
-                                        <button class="btn btn-primary col-6 rounded-0" data-bs-toggle="modal"
-                                                data-bs-target="#editOrderModal" wire:click="editOrder({{$order->id}})">
-                                            Edit
+
+                                        <button class="btn btn-danger text-white col-12 rounded-0 font-size-1 font-weight-2 font-lato">
+
+                                            {{__('myOrdersPage.OrderOnTheWay')}}
                                         </button>
                                     </div>
 
-{{--                                @elseif( $isPastDate ||$isPastTime)--}}
-{{--                                    <div class="btn-group col-12">--}}
+                                @elseif(!$isPast && $diffHour >=1 )
 
-{{--                                        <button class="btn btn-secondary col-6 rounded-0" data-bs-toggle="modal"--}}
-{{--                                                data-bs-target="#addBrandModal">Delete--}}
-{{--                                        </button>--}}
-{{--                                    </div>--}}
-{{--                                @endif--}}
+                                    <div class="btn-group col-12">
+                                        <button class="btn btn-secondary col-6 rounded-0" data-bs-toggle="modal"
+                                                data-bs-target="#addBrandModal">{{__('myOrdersPage.Delete')}}
+                                        </button>
+                                        <button class="btn btn-primary col-6 rounded-0" data-bs-toggle="modal"
+                                                data-bs-target="#editOrderModal" wire:click="editOrder({{$order->id}})">
+                                            {{__('myOrdersPage.Edit')}}
+                                        </button>
+                                    </div>
 
+                                @else
+                                    <div class="btn-group col-12">
+                                        <button class="btn btn-secondary col-12 rounded-0" data-bs-toggle="modal"
+                                                data-bs-target="#addBrandModal">{{__('myOrdersPage.Delete')}}
+                                        </button>
+
+                                    </div>
+                                @endif
 
                             </div>
                         </div>

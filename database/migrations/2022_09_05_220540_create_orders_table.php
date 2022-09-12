@@ -23,8 +23,7 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->tinyInteger('accepted')->default(0);
             $table->tinyInteger('finished')->default(0);
-            $table->date('date');
-            $table->time('time');
+            $table->dateTime('delivery_time');
             $table->unsignedBigInteger('accepted_by')->nullable();
             $table->unsignedBigInteger('finished_by')->nullable();
             $table->timestamps();

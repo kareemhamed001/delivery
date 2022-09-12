@@ -122,9 +122,12 @@
 
                     <div class="d-flex flex-column  justify-content-center align-items-start h-50 ">
                         <h3 class="font-lato">{!!__('homePage.ContactUs')!!}</h3>
-                        <div data-aos="slide-left" class="bg-white bg-opacity-75 px-3 py-2 rounded w-100 d-flex justify-content-between shadow-sm">
-                            <a href="https://www.facebook.com/kareemhamid001/" target="_blank"><i class="fa-brands fa-facebook cursor-pointer text-blue d-block font-size-icon  font-weight-3"></i></a>
-                            <a href="https://api.whatsapp.com/send?phone=+2001118604521&text=Hello" target="_blank"><i class="fa-brands fa-whatsapp cursor-pointer text-green d-block font-size-icon font-weight-3"></i></a>
+                        <div data-aos="slide-left"
+                             class="bg-white bg-opacity-75 px-3 py-2 rounded w-100 d-flex justify-content-between shadow-sm">
+                            <a href="https://www.facebook.com/kareemhamid001/" target="_blank"><i
+                                    class="fa-brands fa-facebook cursor-pointer text-blue d-block font-size-icon  font-weight-3"></i></a>
+                            <a href="https://api.whatsapp.com/send?phone=+2001118604521&text=Hello" target="_blank"><i
+                                    class="fa-brands fa-whatsapp cursor-pointer text-green d-block font-size-icon font-weight-3"></i></a>
 
                         </div>
 
@@ -167,7 +170,7 @@
         <div class="container d-flex flex-column   flex-wrap align-items-center justify-content-center py-2">
 
             <div class="d-flex container w-100 flex-column  justify-content-center ">
-                <a data-aos="fade-right" data-aos-offset="200" data-aos-duration="1000" href="{{url('order')}}"
+                <a data-aos="fade-down-right" data-aos-offset="200" data-aos-duration="1000" href="{{url('order')}}"
                    class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-200-px h-sm-200-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
                     <div class="d-flex flex-column flex-sm-column flex-md-row  text-decoration-none w-100 h-100  ">
                         <div
@@ -267,7 +270,8 @@
                     </div>
 
                 </a>
-                <a data-aos="fade-left" data-aos-offset="200" data-aos-duration="1000" href="{{url('running_orders')}}"
+                <a data-aos="fade-up-left" data-aos-offset="200" data-aos-duration="1000"
+                   href="{{url('running_orders')}}"
                    class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-200-px h-sm-200-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
                     {{--                <img src="{{asset('assets/images/food_italian_italian_food.jpg')}}" alt="">--}}
 
@@ -756,6 +760,20 @@
                 </div>
             </div>
         </div>
+{{--        <div id="circle" class=" "--}}
+{{--             style="width: 400px;height: 400px;border-radius: 50%;border: 5px dashed black;animation: circle 20s linear infinite;">--}}
+
+{{--        </div>--}}
+{{--        <style>--}}
+{{--            @keyframes circle {--}}
+{{--                0% {--}}
+{{--                    transform: rotate(0deg) ;--}}
+{{--                }--}}
+{{--                100% {--}}
+{{--                    transform: rotate(360deg) ;--}}
+{{--                }--}}
+{{--            }--}}
+{{--        </style>--}}
     </section>
 
 @endsection

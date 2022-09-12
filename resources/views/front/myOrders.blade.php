@@ -1,30 +1,48 @@
 @extends('layouts.front.index')
 @section('content')
 
+    @foreach($orders as $order)
 
-    <section class="container d-flex flex-column  mt-5 py-5 ">
+            <?php
+            $now = \Carbon\Carbon::now();
+            $created_at = \Carbon\Carbon::parse($order->delivery_time);
+            $isPast = $created_at->isPast();
+            if ($isPast) {
+                \App\Models\Order::find($order->id)->update([
+                    'canceled' => '1',
+                    'failure_reason' => 'Failure',
+                ]);
+            }
+            ?>
+    @endforeach
+
+    <section class="container d-flex flex-column  ">
         <div class="pt-3 d-flex flex-column align-items-start justify-content-center">
             <h2 class="">
-                Your orders
+               {{__('myOrdersPage.PageHeader')}}
             </h2>
             <p class="text-center">
-                All About Your Orders
+
+                {{__('myOrdersPage.PageSubheader')}}
             </p>
         </div>
 
 
-
         <div class="container d-flex flex-column   flex-wrap align-items-center justify-content-center py-2">
 
-            <div class="d-flex container w-100 flex-column  justify-content-center ">
-                <a  data-aos="slide-up"  data-offset=10data-aos-easing="ease-in-out"  href="{{url('my_orders/running_orders')}}" class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-300-px h-sm-300-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
-                    <div class="d-flex flex-column flex-sm-column flex-md-row  text-decoration-none w-100 h-100  ">
+            <div class="d-flex container flex-wrap container w-100  justify-content-center ">
+                <a style="transition: 0.5s" class="orders-labels-card  text-decoration-none col-12 col-sm-12 col-md-6 col-lg-3 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1  "
+                   data-aos="slide-left" data-aos-easing="ease-out-quart"
+                   href="{{url('my_orders/running_orders')}}"
+                >
+                    <div class="d-flex flex-column  text-decoration-none w-100 h-100  ">
                         <div
-                            class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 h-xs-50 h-sm-50 h-md-100 bg-secondary d-flex justify-content-center align-items-center ">
+                            class="col-12 h-70 bg-primary d-flex justify-content-center align-items-center ">
 
-                            <svg class="w-100 h-75" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" width="906"
+                            <svg class="w-100 h-100" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" width="906"
                                  height="749.52408" viewBox="0 0 906 749.52408"
-                                 xmlns:xlink="http://www.w3.org/1999/xlink"><title>in no time</title>
+                                 xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>{{__('myOrdersPage.RunningOrdersHeader')}}</title>
                                 <path d="M857.42078,783.2802a142.99439,142.99439,0,0,0,190.35559-212.45844Z"
                                       transform="translate(-182 -64.23796)" fill="#f2f2f2"/>
                                 <path
@@ -107,22 +125,24 @@
                         </div>
 
                         <div
-                            class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 h-xs-50 h-sm-50 h-md-100 details-section border-0  p-1 position-relative">
-                            <div class="h3 text-dark">{{ __('homePage.inNoTime') }}</div>
-                            <div class=" text-dark">{{ __('homePage.noTimeToWaste') }}
+                            class="col-12 h-30 details-section border-0  p-1 position-relative">
+                            <div class="h3 text-dark font-size-2-rem ">{{__('myOrdersPage.RunningOrdersHeader')}}</div>
+                            <div class="text-dark">{{__('myOrdersPage.RunningOrdersSubheader')}}
                             </div>
-                            <div class="card-cta"> {{ __('homePage.explore') }}</div>
+                            <div class="position-absolute bottom-0 @if(LaravelLocalization::setLocale()=='ar') start-0 @else  end-0 @endif m-1 text-primary"> {{ __('homePage.explore') }}</div>
                         </div>
                     </div>
 
                 </a>
-                <a  data-aos="slide-down" data-offset="10"  data-aos-easing="ease-in-out" href="{{url('my_orders/delivered_orders')}}"
-                   class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-300-px h-sm-300-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
-                    {{--                <img src="{{asset('assets/images/food_italian_italian_food.jpg')}}" alt="">--}}
 
-                    <div class="d-flex flex-column flex-sm-column flex-md-row  text-decoration-none w-100 h-100 ">
+                <a style="transition: 0.5s" class="orders-labels-card  text-decoration-none col-12 col-sm-12 col-md-6 col-lg-3 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1  "
+                   data-aos="slide-right"  data-aos-easing="ease-out-quart"
+                   href="{{url('my_orders/delivered_orders')}}">
+
+
+                    <div class="d-flex flex-column  text-decoration-none w-100 h-100  ">
                         <div
-                            class="bg-success col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 h-xs-50 h-sm-50 h-md-100  d-flex justify-content-center align-items-centerr ">
+                            class="col-12 h-70 bg-success d-flex justify-content-center align-items-center ">
 
                             <svg class="w-100 h-100 " xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
                                  width="618.67538" height="530" viewBox="0 -15 618.67538 530"
@@ -250,22 +270,25 @@
                         </div>
 
                         <div
-                            class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 h-xs-50 h-sm-50 h-md-100 details-section border-0  p-1 position-relative">
-                            <div class="h3 text-dark">{{ __('homePage.helpUsDeliver') }}</div>
-                            <div class=" text-dark">{{ __('homePage.BeOneOfTheFastDrivers') }}
+                            class="col-12 h-30 details-section border-0  p-1 position-relative">
+                            <div class="h3 text-dark font-size-2-rem">{{__('myOrdersPage.DeliveredOrdersHeader')}}</div>
+                            <div class=" text-dark">{{__('myOrdersPage.DeliveredOrdersSubheader')}}
                             </div>
-                            <div class="card-cta"> {{ __('homePage.explore') }}</div>
+                            <div class="position-absolute bottom-0 @if(LaravelLocalization::setLocale()=='ar') start-0 @else  end-0 @endif m-1 text-primary"> {{ __('homePage.explore') }}</div>
                         </div>
                     </div>
 
                 </a>
-                <a  data-aos="slide-up" data-offset="10" data-aos-easing="ease-in-out" href="{{url('my_orders/canceled_orders')}}"
-                   class="orders-labels-card text-decoration-none col-12 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1 h-xs-300-px h-sm-300-px h-md-150-px h-lg-150-px h-xl-150-px h-xxl-150-px  ">
+
+                <a style="transition: 0.5s" class="orders-labels-card  text-decoration-none col-12 col-sm-12 col-md-6 col-lg-3 m-1 p-0 bg-light overflow-hidden rounded-1 border border-1  "
+                   data-aos="slide-left"  data-aos-easing="ease-out-quart"
+                   href="{{url('my_orders/canceled_orders')}}"
+                >
                     {{--                <img src="{{asset('assets/images/food_italian_italian_food.jpg')}}" alt="">--}}
 
-                    <div class="d-flex flex-column flex-sm-column flex-md-row  text-decoration-none w-100 h-100 ">
+                    <div class="d-flex flex-column  text-decoration-none w-100 h-100  ">
                         <div
-                            class="bg-danger col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 h-xs-50 h-sm-50 h-md-100  d-flex justify-content-center align-items-centerr ">
+                            class="col-12 h-70 bg-danger d-flex justify-content-center align-items-center ">
 
                             <svg class="w-100 h-100" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" width="790"
                                  height="600" viewBox="0 -40 790 600"
@@ -325,11 +348,11 @@
                         </div>
 
                         <div
-                            class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 h-xs-50 h-sm-50 h-md-100 details-section border-0  p-1 position-relative">
-                            <div class="h3 text-dark">{{ __('homePage.helpUsDeliver') }}</div>
-                            <div class=" text-dark">{{ __('homePage.BeOneOfTheFastDrivers') }}
+                            class="col-12 h-30 details-section border-0  p-1 position-relative">
+                            <div class="h3 text-dark font-size-2-rem">{{__('myOrdersPage.CanceledOrdersHeader')}}</div>
+                            <div class=" text-dark">{{__('myOrdersPage.CanceledOrdersSubheader')}}
                             </div>
-                            <div class="card-cta"> {{ __('homePage.explore') }}</div>
+                            <div class="position-absolute bottom-0 @if(LaravelLocalization::setLocale()=='ar') start-0 @else  end-0 @endif m-1 text-primary"> {{ __('homePage.explore') }}</div>
                         </div>
                     </div>
 
@@ -337,6 +360,5 @@
             </div>
         </div>
     </section>
-
 
 @endsection

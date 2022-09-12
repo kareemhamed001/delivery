@@ -8,7 +8,9 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
 
-
+Route::get('/test', function () {
+    return view('welcome');
+});
 Route::group(['prefix'=>LaravelLocalization::setLocale(),'middleware'=>['localeSessionRedirect','localizationRedirect','localeViewPath']],function (){
     Route::get('/', function () {
         return redirect(url('home'));

@@ -95,7 +95,7 @@ class RunningOrders extends Component
 
     public function render()
     {
-        $orders = Order::where('user_id',Auth::user()->id)->where('accepted','=','0')->where('finished','=','0')
+        $orders = Order::where('user_id',Auth::user()->id)->where('accepted','=','1')->where('finished','=','0')->where('canceled','0')
             ->where(function ($query)
             {
                 $query->where('name','like','%'.$this->term.'%')->orWhere('id','like','%'.$this->term.'%') ;

@@ -17,7 +17,7 @@
                     <a class="nav-link " aria-current="page" href="{{url('order')}}">{{ __('homePage.Make order') }} </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="my_orders">{{ __('homePage.My orders') }} </a>
+                    <a class="nav-link" href="{{url('my_orders')}}">{{ __('homePage.My orders') }} </a>
                 </li>
                 @if( \Illuminate\Support\Facades\Auth::user())
                 <li class="nav-item dropdown">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,15 +16,18 @@ class OrderController extends Controller
     }
 
     function store(OrderRequest $request){
+
+
         try {
+            $value=$request['date'].$request['time'];
+            $date=Carbon::create($value);
             Order::create([
                 'user_id'=>Auth::user()->id,
                 'name'=>$request['orderName'],
                 'description'=>$request['orderDescription'],
                 'from_address'=>$request['fromAddress'],
                 'to_address'=>$request['toAddress'],
-                'date'=>$request['date'],
-                'time'=>$request['time'],
+                'delivery_time'=>$date,
                 'notes'=>$request['notes'],
                 'created_at'=>now(),
                 'updated_at'=>now(),
