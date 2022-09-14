@@ -26,6 +26,7 @@ Route::group(['prefix'=>LaravelLocalization::setLocale(),'middleware'=>['localeS
     Route::get('my_orders',[myOrdersController::class,'index'])->middleware('auth');
 
     Route::get('my_orders/running_orders',[myOrdersController::class,'runningOrders'])->middleware('auth');
+    Route::get('my_orders/pending_orders',[myOrdersController::class,'pendingOrders'])->middleware('auth');
     Route::get('my_orders/delivered_orders',[myOrdersController::class,'deliveredOrders'])->middleware('auth');
     Route::get('my_orders/canceled_orders',[myOrdersController::class,'canceledOrders'])->middleware('auth');
 });

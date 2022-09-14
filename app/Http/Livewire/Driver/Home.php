@@ -60,13 +60,13 @@ class Home extends Component
     }
     public function render()
     {
-        $orders=Order::where('canceled','0')->where('accepted','0')->where('finished','0')->where('accepted','0')->whereRaw('Date(delivery_time)=CURDATE()')
+        $orders=Order::where('canceled','0')->where('accepted','0')->where('finished','0')->where('accepted','0')->whereRaw('Date(delivery_time) BETWEEN CURDATE()-2 AND CURDATE()')
             ->where(function ($query){
             $query->where('name','like','%'.$this->term.'%')->orWhere('id','like','%'.$this->term.'%')->orWhere('description','like','%'.$this->term.'%')
                 ->orWhere('from_address','like','%'.$this->term.'%')
                 ->orWhere('to_address','like','%'.$this->term.'%')
             ;
-        })->paginate(25);
+        })->orderBy('delivery_time','asc')->paginate(25);
         return view('livewire.driver.home',compact('orders'));
     }
 }

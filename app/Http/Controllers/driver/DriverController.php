@@ -10,9 +10,19 @@ use Illuminate\Support\Facades\Auth;
 class DriverController extends Controller
 {
 
-    function my_orders(){
 
+    function my_orders(){
         return view('driver.myOrders');
+    }
+
+    function runningOrders(){
+        return view('driver.running-orders');
+    }
+    function deliveredOrders(){
+        return view('driver.delivered-orders');
+    }
+    function canceledOrders(){
+        return view('driver.canceled-orders');
     }
 
     function index()

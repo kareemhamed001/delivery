@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -21,6 +22,17 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+
+
+    protected function authenticated()
+    {
+        if (Auth::user()->role_as=='1'){
+            return  redirect('driver/home')->with('done','welcome '.Auth::user()->name);
+        }else{
+            return  redirect('/home')->with('done','Logged In Successfully');
+        }
+    }
+
     /**
      * Where to redirect users after login.
      *
@@ -35,6 +47,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware(['guest'])->except('logout');
     }
 }

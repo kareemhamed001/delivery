@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,13 +20,13 @@ protected $model=Order::class;
     public function definition()
     {
         return [
-            'user_id'=>1,
+            'user_id'=>User::inRandomOrder()->limit(1)->first()->id,
             'name'=>fake()->name(),
             'description'=>fake()->realText(100),
             'from_address'=>fake()->address(),
             'to_address'=>fake()->address(),
             'notes'=>fake()->realText(),
-            'delivery_time'=>fake()->dateTimeBetween('11/6/2020','11/6/2030') ,
+            'delivery_time'=>fake()->dateTimeBetween('-5 week','+5 week') ,
             'created_at'=>now(),
             'updated_at'=>now(),
         ];

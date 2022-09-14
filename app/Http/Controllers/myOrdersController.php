@@ -17,6 +17,9 @@ class myOrdersController extends Controller
     function runningOrders(){
         return view('front.running-orders');
     }
+    function pendingOrders(){
+        return view('front.pending-orders');
+    }
     function deliveredOrders(){
         return view('front.delivered-orders');
     }

@@ -3,18 +3,17 @@
 namespace App\Http\Livewire\Driver;
 
 use App\Models\Order;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class MyOrders extends Component
+class RunningOrders extends Component
 {
-    use WithPagination;
-    protected $paginationTheme='bootstrap';
 
     public $term='';
     public $orderId,$orderName,$orderDescription,$fromAddress,$toAddress,$date,$time,$notes;
+    use WithPagination;
+    protected $paginationTheme='bootstrap';
 
     function showOrder($id){
         try {
@@ -43,14 +42,19 @@ class MyOrders extends Component
         }
     }
 
-    function accept($id){
+    function setId($id){
+        $this->orderId=$id;
+
+
+    }
+
+    function cancelOrder(){
         try {
-            $order=Order::find($id);
+            $order=Order::find($this->orderId);
             if ($order){
-                $order->update([
-                    'accepted'=>'0',
-                    'accepted_by'=>Auth::user()->id,
-                ]);
+                $order->delete();
+                session()->flash('done','order canceled successfully');
+                $this->dispatchBrowserEvent('close-modal');
             }else{
 
             }
@@ -61,12 +65,13 @@ class MyOrders extends Component
 
     public function render()
     {
-        $orders=Auth::user()->orders()->where('accepted','1')->where('finished','0')->where(function ($query){
-            $query->where('name','like','%'.$this->term.'%')->orWhere('id','like','%'.$this->term.'%')
-                ->orWhere('from_address','like','%'.$this->term.'%')
-                ->orWhere('to_address','like','%'.$this->term.'%')
-            ;
-        })->paginate(10);
-        return view('livewire.driver.my-orders',compact('orders'));
+        $orders=Order::where('accepted_by',Auth::user()->id)->where('accepted','1')->where('finished','0')
+           ->where(function ($query){
+               $query->where('name','like','%'.$this->term.'%')->orWhere('id','like','%'.$this->term.'%')
+                   ->orWhere('from_address','like','%'.$this->term.'%')
+                   ->orWhere('to_address','like','%'.$this->term.'%');
+           })
+            ->paginate(25);
+        return view('livewire.driver.running-orders',compact('orders'));
     }
 }
