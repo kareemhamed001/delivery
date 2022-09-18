@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('hashed_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('description',255);
             $table->string('from_address',255);
             $table->string('to_address',255);
             $table->text('notes')->nullable();
+            $table->string('price')->nullable();
             $table->unsignedBigInteger('accepted_by')->nullable();
             $table->unsignedBigInteger('finished_by')->nullable();
             $table->tinyInteger('accepted')->default(0);
@@ -31,9 +33,9 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('user_id')->references('users')->on('id')->cascadeOnDelete();
-            $table->foreign('accepted_by')->references('users')->on('id')->cascadeOnDelete();
-            $table->foreign('finished_by')->references('users')->on('id')->cascadeOnDelete();
+            $table->foreign('user_id')->references('users')->on('id')->nullOnDelete();
+            $table->foreign('accepted_by')->references('users')->on('id')->nullOnDelete();
+            $table->foreign('finished_by')->references('users')->on('id')->nullOnDelete();
 
         });
     }

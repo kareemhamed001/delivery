@@ -26,7 +26,7 @@ protected $model=Order::class;
             'from_address'=>fake()->address(),
             'to_address'=>fake()->address(),
             'notes'=>fake()->realText(),
-            'delivery_time'=>fake()->dateTimeBetween('-5 week','+5 week') ,
+            'delivery_time'=>fake()->dateTimeBetween('-2 day','+2 day') ,
             'created_at'=>now(),
             'updated_at'=>now(),
         ];

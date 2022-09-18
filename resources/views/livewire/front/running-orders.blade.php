@@ -22,7 +22,7 @@
                     </div>
 
                 </div>
-                <div class="my-2 p-0 w-100 d-flex flex-wrap  justify-content-center">
+                <div class="my-2 p-0 w-100 d-flex flex-wrap  justify-content-start">
 
                     @forelse($orders as $order)
 
@@ -31,6 +31,7 @@
 
                             $created_at = \Carbon\Carbon::parse($order->delivery_time);
                             $diffHuman = $created_at->diffForHumans($now);
+                            $diffDays = $created_at->diffInDays($now);
                             $diffHour = $created_at->diffInHours($now);
                             $diffMinutes = $created_at->diffInMinutes($now);
 
@@ -39,12 +40,12 @@
                             $isLastHour = $created_at->isLastHour();
                             $isLastMinute = $created_at->isLastMinute();
                             $isPast = $created_at->isPast();
-                            if ($isPast) {
-                                \App\Models\Order::find($order->id)->update([
-                                    'canceled' => '1',
-                                    'failure_reason' => 'Failure',
-                                ]);
-                            }
+//                            if ($diffDays >1 && $isPast) {
+//                                \App\Models\Order::find($order->id)->update([
+//                                    'canceled' => '1',
+//                                    'failure_reason' => 'Failure',
+//                                ]);
+//                            }
                             ?>
 
                         <div
@@ -53,10 +54,10 @@
                             <div
                                 class="h-auto col  rounded position-absolute d-flex flex-column justify-content-between align-items-center "
                                 style="top: 5px;bottom: 5px; z-index:1;">
-                                <i class="fa-solid fa-circle d-block text-orange"></i>
-                                <span class="h-100 bg-orange d-block rounded   "
-                                      style="width: 2px;"></span>
-                                <i class="fa-solid fa-circle d-block text-danger"></i>
+                                <i class="fa-solid fa-circle d-block text-primary"></i>
+                                <span class="h-100 bg-primary d-block rounded "
+                                      style="width: 2px;background-image: linear-gradient(to bottom, var(--primary) 0%, var(--secondry) 100%);"></span>
+                                <i class="fa-solid fa-circle d-block text-secondary"></i>
                             </div>
                             <div class="card-img mh-25 position-relative p-0 ">
 
@@ -113,13 +114,13 @@
                                         transform="translate(-116.01378 -185.5)" fill="#2f2e41"/>
                                     <path
                                         d="M332.54,383.683l-.48871-.76574c-.08779-.13808-9.08238-13.68946-33.55867-4.64142-24.98636,9.23833-44.34706-8.60472-44.53981-8.7859l-.09585-.09042-5.65862-50.43534-6.68-40.94362,21.264-3.73059,10.45424-6.27209,41.57111-.74016,10.93945,8.604,17.96045,1.95729,1.64416,37.307-.00754.04065Z"
-                                        transform="translate(-116.01378 -185.5)" fill="#f9a826"/>
+                                        transform="translate(-116.01378 -185.5)" fill="var(--secondry)"/>
                                     <path
                                         d="M338.49789,318.75458v-31.945l5.05057-9.21731.20537-.00631a15.14058,15.14058,0,0,1,10.46072,4.75287c5.08,5.1615,7.38128,13.761,6.84,25.55936l-.01.21588Z"
-                                        transform="translate(-116.01378 -185.5)" fill="#f9a826"/>
+                                        transform="translate(-116.01378 -185.5)" fill="var(--secondry)"/>
                                     <path
                                         d="M250.46647,315.28227,224.72452,312.193l-.02015-.29649c-.87824-12.8368,1.36239-22.36567,6.65951-28.32129,4.80754-5.40507,10.31616-5.73239,10.54834-5.74361l.14859-.007,6.96844,6.33482Z"
-                                        transform="translate(-116.01378 -185.5)" fill="#f9a826"/>
+                                        transform="translate(-116.01378 -185.5)" fill="var(--secondry)"/>
                                     <path
                                         d="M324.98425,254.40579h-67.7379a5.26145,5.26145,0,0,1-5.25552-5.25553V224.62447a39.12447,39.12447,0,0,1,78.24894,0v24.52579A5.26145,5.26145,0,0,1,324.98425,254.40579Z"
                                         transform="translate(-116.01378 -185.5)" fill="#2f2e41"/>
@@ -139,7 +140,7 @@
                                     <path
                                         d="M624.98622,366.5a38,38,0,1,1,38-38A38.04307,38.04307,0,0,1,624.98622,366.5Zm0-74a36,36,0,1,0,36,36A36.04061,36.04061,0,0,0,624.98622,292.5Z"
                                         transform="translate(-116.01378 -185.5)" fill="#3f3d56"/>
-                                    <circle cx="508.97244" cy="143" r="26.43632" fill="#f9a826"/>
+                                    <circle cx="508.97244" cy="143" r="26.43632" fill="var(--secondry)"/>
                                     <polygon
                                         points="506.453 154.16 498.541 143.986 503.142 140.407 506.889 145.224 519.545 131.863 523.777 135.873 506.453 154.16"
                                         fill="#fff"/>
@@ -147,7 +148,7 @@
                                     <path
                                         d="M442.98622,427.5a38,38,0,1,1,38-38A38.04315,38.04315,0,0,1,442.98622,427.5Zm0-74a36,36,0,1,0,36,36A36.0407,36.0407,0,0,0,442.98622,353.5Z"
                                         transform="translate(-116.01378 -185.5)" fill="#3f3d56"/>
-                                    <circle cx="326.97244" cy="204" r="26.43632" fill="#f9a826"/>
+                                    <circle cx="326.97244" cy="204" r="26.43632" fill="var(--secondry)"/>
                                     <polygon
                                         points="324.453 215.16 316.541 204.986 321.142 201.407 324.889 206.224 337.545 192.863 341.777 196.873 324.453 215.16"
                                         fill="#fff"/>
@@ -183,7 +184,7 @@
                             <div class="card-footer ">
 
 
-                                @if(!$isPast && $diffHour <=1 && $diffMinutes<=59)
+                                @if(!$isPast && $diffHour <=1 )
 
                                     <div class="btn-group col-12">
 
@@ -260,10 +261,10 @@
                                 <path
                                     d="M533.896,237.31585l.122-2.82012,5.6101,1.39632a6.26971,6.26971,0,0,0-2.5138-4.61513l5.97581-.33413a64.47667,64.47667,0,0,0-43.1245-26.65136c-12.92583-1.87346-27.31837.83756-36.182,10.43045-4.29926,4.653-7.00067,10.57018-8.92232,16.60685-3.53926,11.11821-4.26038,24.3719,3.11964,33.40938,7.5006,9.18513,20.602,10.98439,32.40592,12.12114,4.15328.4,8.50581.77216,12.35457-.83928a29.721,29.721,0,0,0-1.6539-13.03688,8.68665,8.68665,0,0,1-.87879-4.15246c.5247-3.51164,5.20884-4.39635,8.72762-3.9219s7.74984,1.20031,10.062-1.49432c1.59261-1.85609,1.49867-4.559,1.70967-6.99575C521.28248,239.785,533.83587,238.70653,533.896,237.31585Z"
                                     transform="translate(-201.25 -32.75)" fill="#2f2e41"/>
-                                <circle cx="559" cy="744.5" r="43" fill="#f9a826"/>
-                                <circle cx="54" cy="729.5" r="43" fill="#f9a826"/>
-                                <circle cx="54" cy="672.5" r="31" fill="#f9a826"/>
-                                <circle cx="54" cy="624.5" r="22" fill="#f9a826"/>
+                                <circle cx="559" cy="744.5" r="43" fill="var(--secondry)"/>
+                                <circle cx="54" cy="729.5" r="43" fill="var(--secondry)"/>
+                                <circle cx="54" cy="672.5" r="31" fill="var(--secondry)"/>
+                                <circle cx="54" cy="624.5" r="22" fill="var(--secondry)"/>
                             </svg>
                             <h3>No Data</h3>
                         </div>

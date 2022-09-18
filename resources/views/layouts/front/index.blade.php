@@ -21,7 +21,7 @@
     <title>Sonic</title>
     @livewireStyles
 </head>
-<body class="bg-white vw-100  ">
+<body class=" ">
 
 @include('layouts.front.navbar')
 <div id="done-toast" class="toast  fade position-fixed top-50 start-50 translate-middle @if(session('error')) bg-danger @elseif(session('done')) bg-success @endif " style="z-index: 1">

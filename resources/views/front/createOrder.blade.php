@@ -67,9 +67,9 @@
                 <div class="my-2 col-12 p-1">
                     <label for="">{{__('makeOrderPage.Notes')}} </label>
 
-                    <textarea class="form-control" name="notes" id=""  rows="3" title="ملاحظات">{{old('notes')}}</textarea>
+                    <textarea  class="form-control" name="notes" id=""  rows="3" title="ملاحظات">{{old('notes')}}</textarea>
                     <span class="text-danger">
-                        @error('time'){{$message}}@enderror
+                        @error('notes'){{$message}}@enderror
                     </span>
                 </div>
                 <div class="col-12 my-2  ">

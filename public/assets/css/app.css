@@ -11,28 +11,36 @@
 }
 
 :root {
-    --primary: #242582;
-    --primary-hover: #2F2F72;
-    --test:#1CD6CE;
-    --test2:#B9FFF8;
-    --test3:#277BC0;
-    --test4: #C70039;
-    --test5:rgb(53 ,87 ,100);
-    --test6:#355764;
-    --test7:#355764;
-    --secondry: #553D67;
-    --third-color: #F64C72;
-    --secondry-hover: #ff809c;
+    --primary: #072ea5;
+    --primary-hover: #0D7ADF;
+    --secondry: #30cfd0;
+    --secondry-hover: #FFE0B1;
 
-    --bs-primary-rgb: 255 ,87, 34;
-    --bs-primary-hover-rgb: 47, 47, 114;
-    --bs-secondry-rgb: 53 ,87 ,100;
-    --bs-secondry-hover-rgb: 255, 128, 156;
+    --third-color: #00D500 ;
+    --third-fourth-hover: #FF0000 ;
+
+    --third-white: #FFCF00 ;
+
+    --bs-primary-rgb: 7, 46, 165;
+    --bs-primary-hover-rgb: 13, 122, 233;
+    --bs-secondry-rgb: 48, 207, 208;
+    --bs-secondry-hover-rgb: 255, 224, 177;
+    --bs-third-rgb: 0, 213, 0;
+    --bs-fourth-rgb: 255, 0, 0;
 
     --bs-blue-rgb:66, 103, 178;
     --bs-green-rgb:37, 211,102;
 
+    --body-mode:#fff;
+    --text-color:#000;
+    --shadow-color: #252525;
+    --bg-white:#fff;
 
+}
+
+::selection {
+    color: black;
+    background: var(--secondry-hover);
 }
 
 .bg-primary {
@@ -74,11 +82,44 @@
 }
 
 .font-size-icon{
-    font-size: 3.1rem !important;
+    font-size: 2.5rem !important;
 
 }
 
 @media (min-width: 576px) {
+
+    .font-size-sm-0 {
+        font-size: 0.7rem !important;
+
+    }
+
+    .font-size-sm-1 {
+        font-size: 1.1rem !important;
+
+    }
+
+    .font-size-sm-2 {
+        font-size: 2.2rem !important;
+
+    }
+
+    .font-size-sm-3 {
+        font-size: 4.4rem !important;
+
+    }
+
+
+
+    .font-size-sm-4 {
+        font-size: 8.8rem !important;
+
+    }
+
+    .font-size-sm-5 {
+        font-size: 16.6rem !important;
+
+    }
+
 
     .h-sm-100-px {
         height: 100px !important;
@@ -1553,9 +1594,8 @@
 }
 
 .orders-labels-card {
-    transition: 0.5s;
+    transition: 0.5s!important;
     box-shadow: 0.5px 0.5px 3px 0 gray;
-
 }
 
 .orders-labels-card:hover {
@@ -1981,4 +2021,148 @@
 
 .font-tajawal {
     font-family: 'Tajawal', sans-serif !important;
+}
+
+.font-size-card {
+    font-size: 0.9rem !important;
+    word-spacing: 1px;
+}
+
+.font-size-card {
+    font-size: 0.9rem !important;
+    line-height: 18px;
+}
+
+
+.font-size-0-rem {
+    font-size: 0.5rem !important;
+}
+
+.font-size-1-rem {
+    font-size: 1rem !important;
+}
+.font-size-2-rem {
+    font-size: 1.5rem !important;
+
+}
+.font-size-3-rem {
+    font-size: 2rem !important;
+
+}
+.font-size-4-rem {
+    font-size: 2.5rem !important;
+
+}
+.font-size-5-rem {
+    font-size: 3rem !important;
+
+}
+
+.font-size-0 {
+    font-size: 0.7rem !important;
+
+}
+
+.font-size-1 {
+    font-size: 1.1rem !important;
+
+}
+
+.font-size-2 {
+    font-size: 2.2rem !important;
+
+}
+
+.font-size-3 {
+    font-size: 4.4rem !important;
+
+}
+
+
+
+.font-size-4 {
+    font-size: 8.8rem !important;
+
+}
+
+.font-size-5 {
+    font-size: 16.6rem !important;
+
+}
+
+.font-weight-1 {
+    font-weight: 200 !important;
+}
+
+.font-weight-2 {
+    font-weight: 400 !important;
+}
+
+.font-weight-3 {
+    font-weight: 600 !important;
+}
+
+.font-weight-4 {
+    font-weight: 800 !important;
+}
+
+.font-weight-5 {
+    font-weight: 1000 !important;
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.custom-shape-divider-bottom-1663345094 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1663345094 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 102px;
+}
+
+.custom-shape-divider-bottom-1663345094 .shape-fill {
+    fill: var(--body-mode);
+}
+
+
+.dark-mode{
+    --body-mode: #212529;
+    --text-color: #fff;
+}
+
+.body-color{
+    background-color:var(--body-mode);
+    color: var(--text-color);
+}
+
+.custom-shape-divider-bottom-1663371914 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1663371914 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 115px;
+}
+
+.custom-shape-divider-bottom-1663371914 .shape-fill {
+    fill: #FFFFFF;
 }

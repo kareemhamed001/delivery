@@ -21,7 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role_as'
+        'role_as',
+        'phone_number'
     ];
 
     /**
@@ -45,6 +46,10 @@ class User extends Authenticatable
 
     function orders(){
         return $this->hasMany(Order::class,'user_id','id');
+    }
+
+    function canceledOrders(){
+        return $this->hasMany(orders_canceled_by_driver::class,'driver_id','id');
     }
 
 }

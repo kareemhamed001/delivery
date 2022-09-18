@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class OrderController extends Controller
 {
@@ -21,7 +22,7 @@ class OrderController extends Controller
         try {
             $value=$request['date'].$request['time'];
             $date=Carbon::create($value);
-            Order::create([
+            $order=Order::create([
                 'user_id'=>Auth::user()->id,
                 'name'=>$request['orderName'],
                 'description'=>$request['orderDescription'],
@@ -33,8 +34,12 @@ class OrderController extends Controller
                 'updated_at'=>now(),
             ]);
 
-            session()->flash('done','your order is under review');
-            return redirect()->back()->with('done','your order is under review');
+            $order->update([
+                'hashed_id'=>Hash::make($order->id),
+            ]);
+
+
+            return redirect()->back()->with('done','your order '.$order->id.' waiting driver to accept ');
         }catch (Exception $e){
             return $e;
         }

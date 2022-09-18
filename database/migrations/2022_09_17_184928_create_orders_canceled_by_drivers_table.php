@@ -13,16 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('orders_canceled_by_drivers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone_number')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->tinyInteger('role_as')->default(0);
-            $table->rememberToken();
+            $table->unsignedBigInteger('driver_id');
+            $table->unsignedBigInteger('order_id');
             $table->timestamps();
+            $table->foreign('driver_id')->references('users')->on('id')->cascadeOnDelete();
+            $table->foreign('order_id')->references('orders')->on('id')->nullOnDelete();
         });
     }
 
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('orders_canceled_by_drivers');
     }
 };

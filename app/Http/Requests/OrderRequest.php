@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class OrderRequest extends FormRequest
@@ -23,13 +24,16 @@ class OrderRequest extends FormRequest
      */
     public function rules()
     {
+
+
+        $now=Carbon::today()->addDays(3);
         return [
             'orderName'=>['required','string','max:100'],
             'orderDescription'=>['required','string','max:255'],
             'fromAddress'=>['required','string','max:255'],
             'toAddress'=>['required','string','max:255'],
-            'date'=>['required','date'],
-            'time'=>['required'],
+            'date'=>['required','date','after:yesterday'],
+            'time'=>['required','date_format:H:i'],
             'notes'=>['nullable','max:1000'],
         ];
     }
