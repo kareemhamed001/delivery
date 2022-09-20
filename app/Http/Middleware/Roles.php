@@ -20,6 +20,9 @@ class Roles
         if (Auth::user() && Auth::user()->role_as=='1'){
             return $next($request);
         }
+        elseif (Auth::user() && Auth::user()->role_as=='2'){
+            return $next($request);
+        }
         elseif (Auth::user() && Auth::user()->role_as=='0'){
             return redirect(url('home'));
         }

@@ -17,6 +17,9 @@ class Order extends Model
     function user(){
         return $this->belongsTo(User::class,'user_id','id');
     }
+    function driver(){
+        return $this->belongsTo(User::class,'accepted_by','id');
+    }
 
     function canceledOrders(){
         return $this->hasMany(orders_canceled_by_driver::class,'order_id','id');

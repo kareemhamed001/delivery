@@ -42,6 +42,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix(LaravelLocalization::setLocale().'/driver')
                 ->group(base_path('routes/driverRoutes.php'));
 
+            Route::middleware(['web','role','auth','localeSessionRedirect','localizationRedirect','localeViewPath'])
+            ->prefix(LaravelLocalization::setLocale().'/admin')
+                ->group(base_path('routes/adminRoutes.php'));
+
 
         });
     }

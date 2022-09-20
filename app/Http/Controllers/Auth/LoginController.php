@@ -28,7 +28,10 @@ class LoginController extends Controller
     {
         if (Auth::user()->role_as=='1'){
             return  redirect('driver/home')->with('done','welcome '.Auth::user()->name);
-        }else{
+        } elseif (Auth::user()->role_as=='2'){
+        return  redirect('admin/home')->with('done','welcome '.Auth::user()->name);
+    }
+        else{
             return  redirect('/home')->with('done','Logged In Successfully');
         }
     }

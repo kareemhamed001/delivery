@@ -26,9 +26,16 @@ protected $model=Order::class;
             'from_address'=>fake()->address(),
             'to_address'=>fake()->address(),
             'notes'=>fake()->realText(),
-            'delivery_time'=>fake()->dateTimeBetween('-2 day','+2 day') ,
+            'price'=>fake()->numberBetween(10,200),
+            'accepted_by'=>User::where('role_as','1')->inRandomOrder()->limit(1)->first()->id,
+            'finished_by'=>User::where('role_as','1')->inRandomOrder()->limit(1)->first()->id,
+            'accepted'=>fake()->numberBetween(0,1),
+            'finished'=>fake()->numberBetween(0,1),
+
+            'delivery_time'=>fake()->dateTimeBetween('-8 months','+3 months') ,
             'created_at'=>now(),
             'updated_at'=>now(),
+
         ];
     }
 }

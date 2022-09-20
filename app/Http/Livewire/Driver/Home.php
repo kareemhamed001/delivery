@@ -79,6 +79,7 @@ class Home extends Component
     function showOrder($id){
         try {
 
+
             $order=Order::where('hashed_id',$id)->first();
 
             $now = \Carbon\Carbon::now();
@@ -97,6 +98,7 @@ class Home extends Component
                 $this->notes=$order->notes;
                 $this->phone=$order->user->phone_number;
                 if ($this->orderId &&$this->fromAddress && $this->toAddress &&$this->orderName &&$this->orderDescription &&$this->date &&$this->notes){
+
                     $this->dispatchBrowserEvent('openShowOrderModal');
                 }
             }else{
