@@ -3,109 +3,116 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Charts\ChartJs;
+
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+
 use App\Models\User;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Jenssegers\Agent\Agent;
+use Stevebauman\Location\Facades\Location;
+
 
 class AdminController extends Controller
 {
 
-
-    function statisticsView(){
-        $monthsEarning = Order::select(
-            DB::raw("(Month(delivery_time)) as month"),
-            DB::raw("(sum(price)) as total_price")
-        )
-            ->whereRaw('YEAR(delivery_time)=YEAR(CURDATE())')
-            ->where('accepted', '0')
-            ->where('finished', '0')
-            ->where('canceled', '0')
-            ->orderBy('month')
-            ->groupBy('month')
-            ->get();
-
-        $monthsLabel = [];
-        $monthsPrices = [];
-        foreach ($monthsEarning as $month) {
-            array_push($monthsLabel, $month['month']);
-            array_push($monthsPrices, $month['total_price']);
-
-        }
-        $monthOrdersEarningChart = new ChartJs();
-
-        $monthOrdersEarningChart->labels($monthsLabel);
-        $monthOrdersEarningChart->dataset('monthly earning', 'line', $monthsPrices)->options([
-            'color' => '#0000ff',
-            'backgroundColor' => 'rgb(40,50,143,0.5)',
-            'tooltip' => [
-                'show' => true // or false, depending on what you want.
-            ],
-        ]);
-        $monthOrdersEarningChart->minimalist(false);
-        $monthOrdersEarningChart->displayLegend(false);
-        $monthOrdersEarningChart->barWidth(10);
-        $monthOrdersEarningChart->title('Monthly earning', 20, '#8e8e8e', true, "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif");
+    public $thisMonthpendingOrdersCount = 0;
+    public $thisMonthrunningOrdersCount = 0;
+    public $thisMonthcanceledOrdersCount = 0;
+    public $thisMonthdeliveredOrdersCount = 0;
+    public $thisMonthAllOrdersCount = 0;
+    public $pendingOrdersCount = 0;
+    public $runningOrdersCount = 0;
+    public $canceledOrdersCount = 0;
+    public $deliveredOrdersCount = 0;
+    public $allOrdersCount = 0;
 
 
-
-        return view('admin.statistics',compact('monthOrdersEarningChart'));
+    function ordersView(){
+        return view('admin.orders');
     }
 
+
+    function statisticsView()
+    {
+
+        $currentYearEarning = $this->getYearEarningFromOrdersTable();
+        $monthOrdersEarningChart = $this->getAnnualChart($currentYearEarning, 'This Year Earning', 'rgb(60,120,180,0.5)');
+
+        $lastYearEarning = $this->getYearEarningFromOrdersTable('-1');
+        $lastYearEarningChart = $this->getAnnualChart($lastYearEarning, 'Last Year Earning', 'rgb(60,120,180,0.5)');
+
+
+        Order::whereRaw('MONTH(delivery_time)=MONTH(CURDATE())')->orderBy('delivery_time', 'desc')->chunk(140000, function ($orders) {
+
+            $this->thisMonthpendingOrdersCount += $orders->where('accepted', '0')->where('finished', '0')->where('canceled', '0')->count();
+            $this->thisMonthrunningOrdersCount += $orders->where('accepted', '1')->where('finished', '0')->where('canceled', '0')->count();
+            $this->thisMonthcanceledOrdersCount += $orders->where('canceled', '1')->count();
+            $this->thisMonthdeliveredOrdersCount += $orders->where('accepted', '1')->where('finished', '1')->where('canceled', '0')->count();
+            $this->thisMonthAllOrdersCount += $orders->count();
+        });
+        Order::whereRaw('YEAR(delivery_time)=YEAR(CURDATE())')->orderBy('delivery_time', 'desc')->chunk(140000, function ($orders) {
+
+            $this->deliveredOrdersCount += $orders->where('accepted', '1')->where('finished', '1')->where('canceled', '0')->count();
+            $this->pendingOrdersCount += $orders->where('accepted', '0')->where('finished', '0')->where('canceled', '0')->count();
+            $this->runningOrdersCount += $orders->where('accepted', '1')->where('finished', '0')->where('canceled', '0')->count();
+            $this->canceledOrdersCount += $orders->where('canceled', '1')->count();
+            $this->allOrdersCount += $orders->count();
+
+
+        });
+
+        $pendingOrdersCount = $this->pendingOrdersCount;
+        $runningOrdersCount = $this->runningOrdersCount;
+        $canceledOrdersCount = $this->canceledOrdersCount;
+        $deliveredOrdersCount = $this->deliveredOrdersCount;
+        $allOrdersCount = $this->allOrdersCount;
+        $thisMonthpendingOrdersCount = $this->thisMonthpendingOrdersCount;
+        $thisMonthrunningOrdersCount = $this->thisMonthrunningOrdersCount;
+        $thisMonthcanceledOrdersCount = $this->thisMonthcanceledOrdersCount;
+        $thisMonthdeliveredOrdersCount = $this->thisMonthdeliveredOrdersCount;
+        $thisMonthAllOrdersCount = $this->thisMonthAllOrdersCount;
+
+
+        $thisMonthEarning = $this->getMonthEarningFromOrdersTable();
+        $thisMonthLoses = $this->getMonthLossesFromOrdersTable();
+        $thisMonthTotalOrdersPrice = Order:: selectRaw("SUM(price) as price")
+            ->whereRaw('MONTH(delivery_time) = MONTH(CURDATE())')
+            ->cursor()->first()['price'];
+
+
+        return view('admin.statistics', compact(
+
+            'allOrdersCount',
+            'monthOrdersEarningChart',
+            'lastYearEarningChart',
+            'runningOrdersCount',
+            'pendingOrdersCount',
+            'canceledOrdersCount',
+            'deliveredOrdersCount',
+            'thisMonthAllOrdersCount',
+            'thisMonthpendingOrdersCount',
+            'thisMonthrunningOrdersCount',
+            'thisMonthcanceledOrdersCount',
+            'thisMonthdeliveredOrdersCount',
+            'thisMonthEarning',
+            'thisMonthLoses',
+            'thisMonthTotalOrdersPrice'
+        ));
+    }
 
 
     function index()
     {
-        $monthsEarning = Order::select(
-            DB::raw("(Month(delivery_time)) as month"),
-            DB::raw("(sum(price)) as total_price")
-        )
-            ->whereRaw('YEAR(delivery_time)=YEAR(CURDATE())')
-            ->where('accepted', '0')
-            ->where('finished', '0')
-            ->where('canceled', '0')
-            ->orderBy('month')
-            ->groupBy('month')
-            ->get();
+        $currentYearEarning = $this->getYearEarningFromOrdersTable();
+        $monthOrdersEarningChart = $this->getAnnualChart($currentYearEarning, 'This year earning', 'rgb(60,120,180,0.5)');
 
-        $monthsLabel = [];
-        $monthsPrices = [];
-        foreach ($monthsEarning as $month) {
-            array_push($monthsLabel, $month['month']);
-            array_push($monthsPrices, $month['total_price']);
+        $monthOrdersEarning = $this->getMonthEarningFromOrdersTable();
 
-        }
-        $monthOrdersEarningChart = new ChartJs();
-
-        $monthOrdersEarningChart->labels($monthsLabel);
-        $monthOrdersEarningChart->dataset('monthly earning', 'line', $monthsPrices)->options([
-            'color' => '#0000ff',
-            'backgroundColor' => 'rgb(40,50,143,0.5)',
-            'tooltip' => [
-                'show' => true // or false, depending on what you want.
-            ],
-        ]);
-        $monthOrdersEarningChart->minimalist(false);
-        $monthOrdersEarningChart->displayLegend(false);
-        $monthOrdersEarningChart->barWidth(10);
-        $monthOrdersEarningChart->title('Monthly earning', 20, '#8e8e8e', true, "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif");
-
-
-        $monthOrdersEarning = Order:: selectRaw("SUM(price) as price")
-            ->where('accepted', '0')
-            ->where('finished', '0')
-            ->where('canceled', '0')
-            ->whereRaw('MONTH(delivery_time) = MONTH(CURDATE())')
-            ->get();
-
-        $lastMonthOrdersEarning = Order:: selectRaw("SUM(price) as price")
-            ->where('accepted', '0')
-            ->where('finished', '0')
-            ->where('canceled', '0')
-            ->whereRaw('MONTH(delivery_time) = MONTH(CURDATE())-1')
-            ->get();
-
+        $lastMonthOrdersEarning = $this->getMonthEarningFromOrdersTable(' - 1');
 
         $todayOrdersEarning = Order:: selectRaw("SUM(price) as price")
             ->where('accepted', '0')
@@ -115,11 +122,12 @@ class AdminController extends Controller
             ->get();
 
 
-        $pendingOrdersCountToday = Order::where('accepted', '0')
-            ->where('finished', '0')
-            ->where('canceled', '0')
-            ->whereRaw('Date(delivery_time) = CURDATE()')
-            ->count();
+        $pendingOrdersCountToday =
+            Order::where('accepted', '0')
+                ->where('finished', '0')
+                ->where('canceled', '0')
+                ->whereRaw('Date(delivery_time) = CURDATE()')
+                ->count();
 
         $pendingOrdersCountMonth = Order::where('accepted', '0')
             ->where('finished', '0')
@@ -174,6 +182,71 @@ class AdminController extends Controller
         $topDriversChart->minimalist(true);
 
 
-        return view('admin.dashBoard', compact('lastMonthOrdersEarning', 'pendingOrdersCountMonth', 'DriversNames', 'topDriversChart', 'topDriversToday', 'pendingOrdersCountToday', 'allPendingOrdersCount', 'todayOrdersEarning', 'monthOrdersEarning', 'monthsEarning', 'monthsLabel', 'monthsPrices', 'monthOrdersEarningChart'));
+        return view('admin.dashBoard', compact('lastMonthOrdersEarning', 'pendingOrdersCountMonth', 'DriversNames', 'topDriversChart', 'topDriversToday', 'pendingOrdersCountToday', 'allPendingOrdersCount', 'todayOrdersEarning', 'monthOrdersEarning', 'currentYearEarning', 'monthOrdersEarningChart'));
     }
+
+
+    function getYearEarningFromOrdersTable(string $numberOfYears = '0', $yAxis = 'sum(price)', $monthsXAxes = 'delivery_time')
+    {
+        $currentYearEarning = Order::select(
+            DB::raw("(Month(" . $monthsXAxes . ")) as month"),
+            DB::raw("(" . $yAxis . ") as total")
+        )
+            ->whereRaw('YEAR(delivery_time)= YEAR(CURDATE()) +' . ($numberOfYears ? $numberOfYears : '0'))
+            ->where('finished', '1')
+            ->orderBy('month')
+            ->groupBy('month')
+            ->cursor();
+
+        if ($currentYearEarning) {
+            return $currentYearEarning;
+        }
+        return null;
+    }
+
+    function getAnnualChart($yearEarning, $title = 'Monthly Earning', $color = 'rgb(40,50,143,0.5)')
+    {
+        $xLabel = [];
+        $yLabel = [];
+        foreach ($yearEarning as $month) {
+            array_push($yLabel, $month['total']);
+            array_push($xLabel, $month['month']);
+        }
+
+        $chart = new ChartJs();
+
+        $chart->labels($xLabel);
+        $chart->dataset($title, 'line', $yLabel)->options([
+            'color' => '#0000ff',
+            'backgroundColor' => $color,
+            'tooltip' => [
+                'show' => true // or false, depending on what you want.
+            ],
+        ]);
+        $chart->minimalist(false);
+        $chart->displayLegend(false);
+        $chart->barWidth(10);
+        $chart->title($title, 20, '#8e8e8e', 500);
+
+        return $chart;
+    }
+
+    function getMonthEarningFromOrdersTable(string $numberOfMonths = '0')
+    {
+        $mothEarning = Order::
+        where('finished', '1')
+            ->whereRaw('MONTH(delivery_time) = MONTH(CURDATE()) +' . ($numberOfMonths ? $numberOfMonths : '0'))
+            ->cursor()->sum('price');
+        return $mothEarning;
+    }
+
+    function getMonthLossesFromOrdersTable(string $numberOfMonths = '0')
+    {
+        $monthLoses = Order::where('canceled', '1')
+            ->whereRaw('MONTH(delivery_time) = MONTH(CURDATE())+' . ($numberOfMonths ? $numberOfMonths : '0'))
+            ->cursor()->sum('price');
+        return $monthLoses;
+    }
+
+
 }

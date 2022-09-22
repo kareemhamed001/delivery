@@ -18,7 +18,9 @@ class RevenueTable extends Component
             ->groupBy('accepted_by')
             ->where('accepted', '0')
             ->where('accepted_by', '!=', 'null')
-            ->paginate(25);
+            ->with('driver')
+
+            ->simplePaginate(100);
         return view('livewire.admin.revenue-table',compact('driversRevenue'));
     }
 }

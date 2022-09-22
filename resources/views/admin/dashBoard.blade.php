@@ -152,7 +152,7 @@
                                 Earnings (This month)
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                $ {{$monthOrdersEarning[0]['price']}} </div>
+                                $ {{$monthOrdersEarning}} </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -171,7 +171,7 @@
                                 Earnings (last month)
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                $ {{$lastMonthOrdersEarning[0]['price']}} </div>
+                                $ {{$lastMonthOrdersEarning}} </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -184,19 +184,24 @@
 
         <div class="col-xl-3 col-md-6 mb-4 ">
             <div
-                class="card @if((round((($monthOrdersEarning[0]['price']/$lastMonthOrdersEarning[0]['price'])*100),2)-100)<0) border-left-danger @else border-left-success @endif  shadow h-100 py-2">
+                class="card @if($lastMonthOrdersEarning&& (round((($monthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)<0) border-left-danger @else border-left-success @endif  shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div
-                                class="text-xs font-weight-bold  @if((round((($monthOrdersEarning[0]['price']/$lastMonthOrdersEarning[0]['price'])*100),2)-100)<0) text-danger @else  text-success  @endif text-uppercase mb-1">
+                                class="text-xs font-weight-bold  @if($lastMonthOrdersEarning &&(round((($monthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)<0) text-danger @else  text-success  @endif text-uppercase mb-1">
 
                                 Earning Rate (last month)
                             </div>
                             <div
-                                class="h5 mb-0 font-weight-bold @if((round((($monthOrdersEarning[0]['price']/$lastMonthOrdersEarning[0]['price'])*100),2)-100)<0) text-danger @else text-success @endif ">
-                                % {{round((($monthOrdersEarning[0]['price']/$lastMonthOrdersEarning[0]['price'])*100),2)-100}}
-                                @if((round((($monthOrdersEarning[0]['price']/$lastMonthOrdersEarning[0]['price'])*100),2)-100)<0)
+                                class="h5 mb-0 font-weight-bold @if($lastMonthOrdersEarning&&(round((($monthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)<0) text-danger @else text-success @endif ">
+                                @if($lastMonthOrdersEarning)
+                                    % {{round((($monthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100}}
+                                @else
+                                    % 0
+                                @endif
+
+                                @if($lastMonthOrdersEarning&&(round((($monthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)<0)
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -206,7 +211,7 @@
                                               d="M19.7782 19.7782C15.4824 24.0739 8.51759 24.0739 4.22183 19.7782C-0.0739417 15.4824 -0.0739417 8.51759 4.22183 4.22183C8.51759 -0.0739419 15.4824 -0.0739419 19.7782 4.22183C24.0739 8.51759 24.0739 15.4824 19.7782 19.7782ZM18.364 18.364C14.8492 21.8787 9.15076 21.8787 5.63604 18.364C2.12132 14.8492 2.12132 9.15076 5.63604 5.63604C9.15076 2.12132 14.8492 2.12132 18.364 5.63604C21.8787 9.15076 21.8787 14.8492 18.364 18.364Z"
                                               fill="currentColor"/>
                                     </svg>
-                                @else
+                                    @elseif($lastMonthOrdersEarning&&(round((($monthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)>0)
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -331,6 +336,7 @@
                 @livewire('admin.revenue-table')
             </div>
         </div>
+
 
 
     </div>

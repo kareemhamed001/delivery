@@ -194,7 +194,14 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        //agent info library
+        Jenssegers\Agent\AgentServiceProvider::class,
 
+        //detect agent location
+        Stevebauman\Location\LocationServiceProvider::class,
+
+        //debug lib
+        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
@@ -211,6 +218,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'Location' => 'Stevebauman\Location\Facades\Location',
     ])->toArray(),
 
 ];

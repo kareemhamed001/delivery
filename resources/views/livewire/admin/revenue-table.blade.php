@@ -8,7 +8,7 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Phone</th>
-                <th>Created At</th>
+                <th>Joined At</th>
                 <th>Orders count</th>
                 <th>Revenue</th>
 
@@ -19,10 +19,10 @@
 
             @foreach($driversRevenue as $mydriver)
                 <tr>
-                    <td>{{$mydriver->driver()->first()->id}}</td>
-                    <td>{{$mydriver->driver()->first()->name}}</td>
-                    <td>{{$mydriver->driver()->first()->phone_number}}</td>
-                    <td>{{$mydriver->driver()->first()->created_at}}</td>
+                    <td>{{$mydriver->driver->id}}</td>
+                    <td>{{$mydriver->driver->name}}</td>
+                    <td>{{$mydriver->driver->phone_number}}</td>
+                    <td>{{\Carbon\Carbon::parse($mydriver->driver->created_at)->toDateString() }}</td>
                     <td>{{$mydriver->count}}</td>
                     <td>$ {{$mydriver->revenue}}</td>
 

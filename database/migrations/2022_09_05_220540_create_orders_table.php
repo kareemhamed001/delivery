@@ -33,6 +33,7 @@ return new class extends Migration
 
             $table->timestamps();
 
+            $table->index('delivery_time');
             $table->foreign('user_id')->references('users')->on('id')->nullOnDelete();
             $table->foreign('accepted_by')->references('users')->on('id')->nullOnDelete();
             $table->foreign('finished_by')->references('users')->on('id')->nullOnDelete();

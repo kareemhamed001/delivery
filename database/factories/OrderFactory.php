@@ -32,7 +32,7 @@ protected $model=Order::class;
             'accepted'=>fake()->numberBetween(0,1),
             'finished'=>fake()->numberBetween(0,1),
 
-            'delivery_time'=>fake()->dateTimeBetween('-8 months','+3 months') ,
+            'delivery_time'=>fake()->dateTimeBetween('-2 year','+3 months') ,
             'created_at'=>now(),
             'updated_at'=>now(),
 

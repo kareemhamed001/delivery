@@ -8,14 +8,17 @@
         "php": "^8.0.2",
         "consoletvs/charts": "6.*",
         "guzzlehttp/guzzle": "^7.2",
+        "jenssegers/agent": "^2.6",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "livewire/livewire": "^2.10",
-        "mcamara/laravel-localization": "^1.7"
+        "mcamara/laravel-localization": "^1.7",
+        "stevebauman/location": "^6.5"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
