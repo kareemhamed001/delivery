@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html @if(LaravelLocalization::setLocale()=='ar')dir="rtl" @endif lang="LaravelLocalization::setLocale()">
 
 <head>
 
@@ -26,7 +26,9 @@
 @livewireStyles
 </head>
 
-<body id="page-top">
+<body id="page-top" class="position-relative">
+
+
 
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -47,6 +49,23 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+
+                <div id="done-toast" class="toast  fade position-fixed top-50 start-50 translate-middle @if(session('error')) bg-danger @elseif(session('done')) bg-success @endif " style="z-index: 1">
+                    <div class="toast-header">
+                        <strong class="me-auto "><i class=" @if(session('error'))fa-solid fa-circle-exclamation @elseif(session('done'))fa-regular fa-circle-check @endif  "></i>@if(session('error')) Sorry! @elseif(session('done')) Concratulations! @endif </strong>
+                        <small>just now</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                    </div>
+                    <div class="toast-body text-white">
+                        @if(session('done'))
+                            {{session('done')}}
+                        @endif
+                        @if(session('error'))
+                            {{session('error')}}
+                        @endif
+                    </div>
+                </div>
+
                 @yield('content')
             </div>
             <!-- /.container-fluid -->
@@ -66,28 +85,9 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Bootstrap core JavaScript-->
 <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
+@stack('scripts')
 <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('assets/js/all.min.js')}}"></script>
 
@@ -97,9 +97,25 @@
 
 <!-- Custom scripts for all pages-->
 <script src="{{asset('assets/js/sb-admin-2.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/6.0.6/highcharts.js" charset="utf-8"></script>
 <script src="{{asset('assets/js/Chart.min.js')}}" charset="utf-8"></script>
+@if(session('done')||session('error'))
+    <script>
+        $(document).ready(function () {
+            $("#done-toast").toast({
+                delay: 4000
+            });
+            $('#done-toast').toast('show');
+            setInterval(function () {
+                $('#done-toast').toast('hide');
+            }, 4000);
+        });
+    </script>
+@endif
 @livewireScripts
 @yield('scripts')
+
+
 
 {{--    <!-- Page level plugins -->--}}
 {{--    <script src="{{asset('assets/js/Chart.min.js')}}"></script>--}}

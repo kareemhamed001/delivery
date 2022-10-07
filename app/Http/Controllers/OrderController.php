@@ -34,10 +34,6 @@ class OrderController extends Controller
                 'updated_at'=>now(),
             ]);
 
-            $order->update([
-                'hashed_id'=>Hash::make($order->id),
-            ]);
-
 
             return redirect()->back()->with('done','your order '.$order->id.' waiting driver to accept ');
         }catch (Exception $e){

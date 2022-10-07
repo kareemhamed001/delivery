@@ -9,49 +9,8 @@
     </div>
     <div class="row">
 
-
-        <!--ALL Pending Requests -->
-        <div class="col-xl-3 col-md-6 mb-4 ">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                All Pending Orders Count
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$allPendingOrdersCount}}</div>
-                        </div>
-                        <div class="col-auto">
-
-                            <i class="fa-solid fa-question  fa-3x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- This Month Pending Requests  -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Pending Orders Count(This month)
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$pendingOrdersCountMonth}}</div>
-                        </div>
-                        <div class="col-auto">
-
-                            <i class="fa-solid fa-question  fa-3x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Today's Pending Requests  -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -59,7 +18,28 @@
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Pending Orders Count(today)
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$pendingOrdersCountToday}}</div>
+                            <div
+                                class="h5 mb-0 font-weight-bold text-gray-800">{{$pendingOrdersCountToday->count}}</div>
+                        </div>
+                        <div class="col-auto">
+
+                            <i class="fa-solid fa-question  fa-3x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Today's Pending Requests  -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                Canceled Orders Count(today)
+                            </div>
+                            <div
+                                class="h5 mb-0 font-weight-bold text-gray-800">{{$canceledOrdersCountToday->count}}</div>
                         </div>
                         <div class="col-auto">
 
@@ -70,60 +50,7 @@
             </div>
         </div>
 
-        <!-- Today's Pending Requests/all pending requests  -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Today's pending order
-                                per all orders
-                            </div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-
-                                    <div
-                                        class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                        @if($allPendingOrdersCount)
-                                            {{round((($pendingOrdersCountToday/$allPendingOrdersCount)*100),2) }}
-                                        @else
-                                            0
-                                        @endif
-                                        %
-                                    </div>
-
-
-                                </div>
-                                <div class="col">
-                                    <div class="progress progress-sm mr-2">
-
-                                        <div class="progress-bar bg-info" role="progressbar"
-                                             style="width:@if($allPendingOrdersCount){{(($pendingOrdersCountToday/$allPendingOrdersCount)*100)}}@else 0 @endif%"
-                                             aria-valuenow="
-                                              @if($allPendingOrdersCount)
-                                                {{(($pendingOrdersCountToday/$allPendingOrdersCount)*100)}}
-                                              @else
-                                              0
-                                              @endif
-                                              "
-                                             aria-valuemin="0"
-                                             aria-valuemax="100">
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -133,7 +60,7 @@
                             </div>
 
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                $ {{$todayOrdersEarning[0]['price']}} </div>
+                                $ {{$todayOrdersEarning->price}} </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -143,7 +70,7 @@
             </div>
         </div>
 
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -162,7 +89,7 @@
             </div>
         </div>
 
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -181,8 +108,7 @@
             </div>
         </div>
 
-
-        <div class="col-xl-3 col-md-6 mb-4 ">
+        <div class="col-xl-4 col-md-6 mb-4 ">
             <div
                 class="card @if($lastMonthOrdersEarning&& (round((($monthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)<0) border-left-danger @else border-left-success @endif  shadow h-100 py-2">
                 <div class="card-body">
@@ -211,7 +137,7 @@
                                               d="M19.7782 19.7782C15.4824 24.0739 8.51759 24.0739 4.22183 19.7782C-0.0739417 15.4824 -0.0739417 8.51759 4.22183 4.22183C8.51759 -0.0739419 15.4824 -0.0739419 19.7782 4.22183C24.0739 8.51759 24.0739 15.4824 19.7782 19.7782ZM18.364 18.364C14.8492 21.8787 9.15076 21.8787 5.63604 18.364C2.12132 14.8492 2.12132 9.15076 5.63604 5.63604C9.15076 2.12132 14.8492 2.12132 18.364 5.63604C21.8787 9.15076 21.8787 14.8492 18.364 18.364Z"
                                               fill="currentColor"/>
                                     </svg>
-                                    @elseif($lastMonthOrdersEarning&&(round((($monthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)>0)
+                                @elseif($lastMonthOrdersEarning&&(round((($monthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)>0)
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -237,30 +163,28 @@
 
     <div class="row">
 
-        <!-- line Chart -->
-        <div class="col-xl-8 col-lg-7">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+        {{--        <!-- line Chart -->--}}
+        {{--        <div class="col-xl-8 col-lg-7">--}}
+        {{--            <div class="card shadow mb-4">--}}
+        {{--                <!-- Card Header - Dropdown -->--}}
+        {{--                <div--}}
+        {{--                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">--}}
+        {{--                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>--}}
 
-                </div>
+        {{--                </div>--}}
 
-                <!-- Card Body -->
-                <div class="card-body">
-                    <div class="chart-area">
+        {{--                <!-- Card Body -->--}}
+        {{--                <div class="card-body">--}}
+        {{--                    <div class="chart-area">--}}
+        {{--                        {!! $monthOrdersEarningChart->container() !!}--}}
 
-                        {!! $monthOrdersEarningChart->container() !!}
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
+        {{--                    </div>--}}
+        {{--                </div>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
 
         <!-- Pie Chart -->
-        <div class="col-xl-4 col-lg-5">
+        <div class="col">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div
@@ -319,30 +243,8 @@
         </div>
     </div>
 
-    <div class="row">
-
-        {{--users table card--}}
-        <div class="card shadow mb-4">
-
-            <div
-                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">All drivers Revenue</h6>
-
-            </div>
-
-            <!-- Card Body -->
-            <div class="card-body">
-                {{--table component--}}
-                @livewire('admin.revenue-table')
-            </div>
-        </div>
-
-
-
-    </div>
-
 @endsection
 @section('scripts')
-    {!! $monthOrdersEarningChart->script() !!}
+
     {!! $topDriversChart->script() !!}
 @endsection

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class Order extends Model
 {
@@ -12,6 +14,20 @@ class Order extends Model
     protected $table='orders';
     protected $guarded=[];
     protected $dates=['delivery_time','created_at','updated_at'];
+
+//    public $incrementing = false;
+//    protected $keyType = 'string';
+//
+    protected static function boot()
+    {
+        parent::boot();
+
+        Order::creating(function ($item) {
+            $item->hashed_id=Hash::make($item->id);
+        });
+    }
+
+
 
 
     function user(){

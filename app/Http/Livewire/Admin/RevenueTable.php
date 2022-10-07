@@ -16,11 +16,11 @@ class RevenueTable extends Component
         $driversRevenue = Order::selectRaw('accepted_by,COUNT(accepted_by) as count,SUM(price) as revenue')
             ->orderBy('revenue', 'desc')
             ->groupBy('accepted_by')
-            ->where('accepted', '0')
+            ->where('accepted', '1')
             ->where('accepted_by', '!=', 'null')
             ->with('driver')
 
-            ->simplePaginate(100);
+            ->paginate(25);
         return view('livewire.admin.revenue-table',compact('driversRevenue'));
     }
 }

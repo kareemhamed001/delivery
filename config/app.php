@@ -202,6 +202,7 @@ return [
 
         //debug lib
         Barryvdh\Debugbar\ServiceProvider::class,
+        Yoeunes\Toastr\ToastrServiceProvider::class
 
     ],
 

@@ -11,11 +11,15 @@
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
+        "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "livewire/livewire": "^2.10",
         "mcamara/laravel-localization": "^1.7",
-        "stevebauman/location": "^6.5"
+        "stevebauman/location": "^6.5",
+        "yoeunes/toastr": "^2.0",
+        "ext-pthreads": "*",
+        "ext-xlswriter": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

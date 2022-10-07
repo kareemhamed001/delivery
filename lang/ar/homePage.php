@@ -1,6 +1,6 @@
 <?php
 return[
-    'logo'=>'Sonic',
+    'logo'=>'Sprint',
     'Home'=>'الرئيسيه',
     'Make order'=>'اطلب توصيله',
     'My orders'=>'طلباتي',

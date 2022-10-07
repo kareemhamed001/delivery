@@ -1,6 +1,6 @@
 <?php
 return[
-    'logo'=>'Sonic',
+    'logo'=>'Sprint',
     'Home'=>'Home',
     'Make order'=>'Make order',
     'My orders'=>'My orders',

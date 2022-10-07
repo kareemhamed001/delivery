@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
+        ini_set('memory_limit', -1);
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('hashed_id')->nullable();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('name');
             $table->string('description',255);
             $table->string('from_address',255);

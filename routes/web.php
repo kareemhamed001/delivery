@@ -31,5 +31,10 @@ Route::group(['prefix'=>LaravelLocalization::setLocale(),'middleware'=>['localeS
     Route::get('my_orders/canceled_orders',[myOrdersController::class,'canceledOrders'])->middleware('auth');
 });
 
+Route::prefix('facebook')->name('facebook.')->group(function (){
+    Route::get('login',[\App\Http\Controllers\FacebookLogin::class,'facebookLogin'])->name('login');
+    Route::get('callback',[\App\Http\Controllers\FacebookLogin::class,'facebookCallback'])->name('callback');
+});
+
 Auth::routes();
 

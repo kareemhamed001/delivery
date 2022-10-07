@@ -29,12 +29,12 @@ class LoginController extends Controller
     public function login(Request $request)
     {
 
-        $request->validate([
+        $credentials=$request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
 
-        $credentials = $request->only('email', 'password');
+//        $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
 
@@ -48,12 +48,13 @@ class LoginController extends Controller
                 'operation'=>'loggedIn ',
             ]);
 
-
-
             if (Auth::user()->role_as=='1'){
                 return  redirect('driver/home')->with('done','welcome '.Auth::user()->name);
             } elseif (Auth::user()->role_as=='2'){
                 return  redirect('admin/home')->with('done','welcome '.Auth::user()->name);
+            }
+            elseif (Auth::user()->role_as=='3'){
+                return  redirect()->back()->with('error','you didnt registered');
             }
             else{
                 return  redirect('/home')->with('done','Logged In Successfully');

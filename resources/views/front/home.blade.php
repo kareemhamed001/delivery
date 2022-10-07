@@ -162,18 +162,6 @@
     </section>
 
 
-
-
-
-
-    {{--    <section class=" w-100 d-block d-sm-none h-auto bg-transparent  overflow-hidden position-relative">--}}
-    {{--        <div--}}
-    {{--            class="bg-danger p-2  d-flex flex-column justify-content-center align-items-center ">--}}
-
-    {{--            <h3 class="text-white font-weight-3 text-center "> {{ __('homePage.Deliver your order online') }}</h3>--}}
-    {{--        </div>--}}
-    {{--    </section>--}}
-
     <section class="container d-flex flex-column align-items-center justify-content-center py-5 bg-transparent">
 
         <div class=" col-12 col-  d-flex flex-column align-items-center justify-content-center">

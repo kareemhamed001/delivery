@@ -5,7 +5,8 @@
         <div class="modal-content ">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Order Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"  wire:click="closeModal" ></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        wire:click="closeModal"></button>
             </div>
 
             <div wire:loading class="p-2">
@@ -16,51 +17,77 @@
 
             <div wire:loading.remove>
 
-                <div class="modal-body">
+                <div class="modal-body row">
 
-                    <div class="col-12 mb-3 d-flex">
-                        <div class="col-6">
+                    <div class="col-12 col-md-6">
 
-                            <label for="">{{__('makeOrderPage.User Name')}} </label>
-                            <input class="form-control text-break" type="text"  value="{{$userName}}"
-                                   placeholder="اسم العميل" title="اسم العميل"
-                            >
-                        </div>
-                        <div class="col-6">
-
-                            <label for="">{{__('makeOrderPage.Order Id')}} </label>
-                            <input class="form-control text-break" type="text"  value="{{$orderId}}"
-                                   placeholder="رقم الطلب" title="رقم الطلب"
-                            >
-                            <span class="text-danger">
+                        <label for="">{{__('makeOrderPage.Order Id')}} </label>
+                        <input class="form-control text-break" type="text" value="{{$orderId}}"
+                               placeholder="رقم الطلب" title="رقم الطلب"
+                        >
+                        <span class="text-danger">
                                 @error('orderName'){{$message}}@enderror
                             </span>
-                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+
+                        <label for="">{{__('makeOrderPage.Order Name')}} </label>
+                        <input class="form-control text-break" type="text" value="{{$orderName}}"
+                               placeholder="ما الذي تريد توصيله" title="ما الذي تريد توصيله"
+                        >
+                        <span class="text-danger">
+                                @error('orderName'){{$message}}@enderror
+                            </span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="">{{__('makeOrderPage.Order description')}} </label>
+                        <textarea class="form-control text-break" id="" rows="1"
+                                  title="ملاحظات">{{$orderDescription}}</textarea>
+                        <span class="text-danger">
+                                @error('orderDescription'){{$message}}@enderror
+                            </span>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+
+                        <label for="">{{__('makeOrderPage.User Name')}} </label>
+                        <input class="form-control text-break" type="text" value="{{$userName}}"
+                               placeholder="اسم العميل" title="اسم العميل"
+                        >
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label for="">Phone</label>
+                        <input class="form-control text-break" type="text" value=" {{$phone}}"
+                               placeholder="رقم موبايل العميل" title="رقم موبايل العميل">
+                        <span class="text-danger">
+                        @error('toAddress'){{$message}}@enderror
+
+                    </div>
+
+                    <div class="col-12 col-md-6">
+
+                        <label for="">{{__('makeOrderPage.Order Price')}} </label>
+                        <input class="form-control text-break" type="text" value="{{$orderPrice}}"
+                               placeholder="سعر التوصيل" title="سعر التوصيل"
+                        >
+                        <span class="text-danger">
+                                @error('orderName'){{$message}}@enderror
+                            </span>
                     </div>
 
 
-                    <div class="d-flex mb-3">
-                        <div class="col-6">
+                    <div class="col-12 col-md-6">
+                        <label for="">Time</label>
+                        <input class="form-control text-break" type="text" value=" {{$date}}"
+                               placeholder="مكان توصيل الطلب" title="مكان توصيل الطلب">
+                        <span class="text-danger">
+                        @error('toAddress'){{$message}}@enderror
 
-                            <label for="">{{__('makeOrderPage.Order Name')}} </label>
-                            <input class="form-control text-break" type="text"  value="{{$orderName}}"
-                                   placeholder="ما الذي تريد توصيله" title="ما الذي تريد توصيله"
-                            >
-                            <span class="text-danger">
-                                @error('orderName'){{$message}}@enderror
-                            </span>
-                        </div>
-                        <div class="col-6">
-
-                            <label for="">{{__('makeOrderPage.Order Price')}} </label>
-                            <input class="form-control text-break" type="text"  value="{{$orderPrice}}"
-                                   placeholder="سعر التوصيل" title="سعر التوصيل"
-                            >
-                            <span class="text-danger">
-                                @error('orderName'){{$message}}@enderror
-                            </span>
-                        </div>
                     </div>
+
 
                     <div class="mb-3">
                         <label for="">{{__('makeOrderPage.From')}} </label>
@@ -72,43 +99,18 @@
                     </div>
                     <div class="mb-3">
                         <label for="">{{__('makeOrderPage.To')}} </label>
-                        <input class="form-control text-break" type="text"  value="{{$toAddress}}"
+                        <input class="form-control text-break" type="text" value="{{$toAddress}}"
                                placeholder="مكان توصيل الطلب" title="مكان توصيل الطلب">
                         <span class="text-danger">
                         @error('toAddress'){{$message}}@enderror
                     </span>
                     </div>
-                    <div class="col-12 mb-3 d-flex">
-                        <div class="col-6">
-                            <label for="">Time</label>
-                            <input class="form-control text-break" type="text"  value=" {{$date}}"
-                                   placeholder="مكان توصيل الطلب" title="مكان توصيل الطلب">
-                            <span class="text-danger">
-                            @error('toAddress'){{$message}}@enderror
 
-                        </div>
-                        <div class="col-6">
-                            <label for="">Phone</label>
-                            <input class="form-control text-break" type="text"  value=" {{$phone}}"
-                                   placeholder="رقم موبايل العميل" title="رقم موبايل العميل">
-                            <span class="text-danger">
-                            @error('toAddress'){{$message}}@enderror
-
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="">{{__('makeOrderPage.Order description')}} </label>
-                        <textarea class="form-control text-break" id="" rows="3" title="ملاحظات">{{$orderDescription}}</textarea>
-                        <span class="text-danger">
-                                @error('orderDescription'){{$message}}@enderror
-                            </span>
-                    </div>
 
                     <div class="mb-3">
                         <label>{{__('makeOrderPage.Notes')}} </label>
 
-                        <textarea class="form-control text-break" id="" rows="3" title="ملاحظات">{{$notes}}</textarea>
+                        <textarea class="form-control text-break" id="" rows="1" title="ملاحظات">{{$notes}}</textarea>
                         <span class="text-danger">
                         @error('time'){{$message}}@enderror
                     </span>
@@ -133,7 +135,8 @@
         <div class="modal-content">
             <div class="modal-header ">
                 <h5 class="modal-title" id="exampleModalLabel">Cancel Order</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"  wire:click="closeModal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        wire:click="closeModal"></button>
             </div>
             <div class="modal-body ">
                 <p>
@@ -155,7 +158,8 @@
         <div class="modal-content">
             <div class="modal-header ">
                 <h5 class="modal-title" id="exampleModalLabel">Finish Order</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"  wire:click="closeModal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        wire:click="closeModal"></button>
             </div>
             <div class="modal-body ">
                 <p>
@@ -178,7 +182,8 @@
         <div class="modal-content">
             <div class="modal-header ">
                 <h5 class="modal-title" id="exampleModalLabel">Accept Order</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"  wire:click="closeModal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        wire:click="closeModal"></button>
             </div>
             <div class="modal-body ">
                 <div class="mb-3">
@@ -195,7 +200,7 @@
 
                     <label for="">{{__('makeOrderPage.Price')}} </label>
                     <input class="form-control text-break" type="text" name="orderName" value="{{$orderPrice}}"
-                           placeholder="ادخل سعر التوصيل" title="ما الذي تريد توصيله"  wire:model.defer="orderPrice">
+                           placeholder="ادخل سعر التوصيل" title="ما الذي تريد توصيله" wire:model.defer="orderPrice">
                     <span class="text-danger">
                                 @error('orderPrice'){{$message}}@enderror
                             </span>
