@@ -151,8 +151,12 @@ trait OrdersTrait
             ]);
             $this->dispatchBrowserEvent('close-modals');
             $this->emptyFields();
+            toastr()->success('Price Added');
         } else {
-            $validatedData = $this->validate();
+            $this->dispatchBrowserEvent('close-modals');
+            $this->emptyFields();
+            toastr()->error('Try again');
+
         }
     }
 

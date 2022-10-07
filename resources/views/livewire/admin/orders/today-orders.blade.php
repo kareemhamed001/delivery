@@ -1,7 +1,7 @@
 <div>
     @include('livewire.driver.inc.modals')
     <div>
-        <h4 class="h4 font-weight-bold text-gray-800">Today's Orders </h4>
+        <h4 class="h4 font-weight-bold text-gray-800 text-capitalize">{{$title}} Orders : {{$ordersCount}} order</h4>
 
         <div class="row mt-3">
 
@@ -10,6 +10,7 @@
 
                     <div class="col-md-6">
                         <select class="form-select" name="" id="" wire:model="filterValue">
+                            <option value="0">all</option>
                             <option value="1">pending</option>
                             <option value="2">running</option>
                             <option value="3">finished</option>
@@ -55,9 +56,12 @@
 
                             <td  wire:click="showOrder('{{$order->hashed_id}}')">{{\Carbon\Carbon::parse($order->delivery_time)->diffForHumans(now())  }}</td>
 
-                            <td>
-                                <button class="btn btn-sm btn-success"  wire:click="setAddress('{{ $order->hashed_id }}')">Accept</button>
-                            </td>
+                            @if($order->price==null)
+                                <td>
+                                    <button class="btn btn-sm btn-success"  wire:click="setAddress('{{ $order->hashed_id }}')">Accept</button>
+                                </td>
+                            @endif
+
 
                         </tr>
                     @empty
