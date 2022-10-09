@@ -116,6 +116,7 @@ class AdminController extends Controller
                 'description' => $request['orderDescription'],
                 'from_address' => $request['fromAddress'],
                 'to_address' => $request['toAddress'],
+                'price' => $request['price'],
                 'delivery_time' => $date,
                 'notes' => $request['notes'],
                 'created_at' => now(),
@@ -133,6 +134,7 @@ class AdminController extends Controller
     function statisticsView()
 
     {
+
 
         $query=Order::query();
         $yearsStatistics = $query->selectRaw(DB::raw('YEAR(delivery_time) as year , COUNT(*) as count ,SUM(price) as totalPrice '))->orderBy('year')->groupBy('year')->get();

@@ -30,6 +30,7 @@ class CreateOrderRequest extends FormRequest
             'orderDescription'=>['required','string','max:255'],
             'fromAddress'=>['required','string','max:255'],
             'toAddress'=>['required','string','max:255'],
+            'price'=>['required','numeric','max:1000','min:10'],
             'date'=>['required','date','after:yesterday'],
             'time'=>['required','date_format:H:i'],
             'notes'=>['nullable','max:1000'],

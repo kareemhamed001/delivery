@@ -196,15 +196,7 @@
                     <label for="">{{__('makeOrderPage.To')}} </label>
                     <p class="form-control text-break">{{$toAddress}}</p>
                 </div>
-                <div class="mb-3">
 
-                    <label for="">{{__('makeOrderPage.Price')}} </label>
-                    <input class="form-control text-break" type="text" name="orderName" value="{{$orderPrice}}"
-                           placeholder="ادخل سعر التوصيل" title="ما الذي تريد توصيله" wire:model.defer="orderPrice">
-                    <span class="text-danger">
-                                @error('orderPrice'){{$message}}@enderror
-                            </span>
-                </div>
 
             </div>
             <div class="modal-footer">

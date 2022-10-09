@@ -83,6 +83,15 @@
                     </div>
 
                     <div class="my-2 col-12 p-1">
+                        <label for="">{{__('makeOrderPage.Price')}} </label>
+
+                        <input  class="form-control" name="price" id=""  title="سعر التوصيل" value="{{old('price')}}">
+                        <span class="text-danger">
+                        @error('price'){{$message}}@enderror
+                    </span>
+                    </div>
+
+                    <div class="my-2 col-12 p-1">
                         <label for="">{{__('makeOrderPage.Notes')}} </label>
 
                         <textarea  class="form-control" name="notes" id=""  rows="3" title="ملاحظات">{{old('notes')}}</textarea>

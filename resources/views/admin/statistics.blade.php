@@ -8,22 +8,22 @@
 
     <div class="row">
 
-        <div class="my-2 col-6  h-auto px-1">
+        <div class="my-2 col-md-6  h-auto px-1">
             <div class="shadow rounded">
                 {!! $thisMonthChart->container() !!}
             </div>
         </div>
-        <div class="my-2 col-6  h-auto px-1">
+        <div class="my-2 col-md-6  h-auto px-1">
             <div class="shadow rounded">
                 {!! $revenueChart->container() !!}
             </div>
         </div>
-        <div class="my-2 col-6  h-auto px-1">
+        <div class="my-2 col-md-6  h-auto px-1">
             <div class="shadow rounded">
                 {!! $yearsChart->container() !!}
             </div>
         </div>
-        <div class="my-2 col-6  h-auto px-1">
+        <div class="my-2 col-md-6  h-auto px-1">
             <div class="shadow rounded">
                 {!! $monthsChart->container() !!}
             </div>

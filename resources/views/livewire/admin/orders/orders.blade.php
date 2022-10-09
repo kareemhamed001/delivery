@@ -38,8 +38,6 @@
 {{--                   </div>--}}
                    <tbody >
 
-
-
                    @forelse($orders as $order)
 
                        <tr class="cursor-pointer">
@@ -50,8 +48,6 @@
                            <td class="d-none d-sm-table-cell" wire:click="showOrder('{{$order->hashed_id}}')">{{$order->to_address}}</td>
 
                            <td  wire:click="showOrder('{{$order->hashed_id}}')">{{\Carbon\Carbon::parse($order->delivery_time)->diffForHumans(now())  }}</td>
-
-
 
                        </tr>
                    @empty

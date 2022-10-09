@@ -4492,6 +4492,9 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 .card-title {
     margin-bottom: .75rem
 }
+font-title{
+    font-size: 4rem;
+}
 
 .card-subtitle {
     margin-top: -.375rem;

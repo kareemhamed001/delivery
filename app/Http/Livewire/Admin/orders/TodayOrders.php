@@ -23,6 +23,7 @@ class TodayOrders extends Component
 
     public function render()
     {
+        $title='Today\'s';
         $query = Order::query();
         if ($this->filterValue) {
             if ($this->filterValue == 1) {
@@ -50,8 +51,6 @@ class TodayOrders extends Component
                 $query->where('canceled', '1');
 
             }
-        }else{
-            $title='Today\'s';
         }
         $orders = $query->with('user')->whereRaw('DATE(delivery_time)=CURDATE()')
             ->where(function ($query) {
@@ -59,7 +58,7 @@ class TodayOrders extends Component
                     ->where('name', 'like', '%' . $this->term . '%')->orWhere('id', 'like', '%' . $this->term . '%')
                     ->orWhere('from_address', 'like', '%' . $this->term . '%')
                     ->orWhere('to_address', 'like', '%' . $this->term . '%');
-            })->orderBy($this->orderBy, $this->arrange)->paginate(100);
+            })->orderBy($this->orderBy, $this->arrange)->paginate(50);
         $ordersCount=$orders->total();
 
 

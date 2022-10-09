@@ -30,30 +30,25 @@ class Home extends Component
     }
 
     function acceptOrder(){
-
-
-//        try {
-            $validatedData = $this->validate();
+        try {
 
             $order=Order::find($this->orderId);
-            if ($order && $this->orderPrice){
-
-
+            if ($order){
                 $order->update([
                     'accepted'=>'1',
-                    'price'=>$this->orderPrice,
                     'accepted_by'=>Auth::user()->id
                 ]);
                 $this->dispatchBrowserEvent('close-modals');
                 $this->emptyFields();
+                toastr()->success('Suucessfully ');
             }else{
-                $validatedData = $this->validate();
+                toastr()->error('Error ');
 
             }
-//        }catch (Exception $e){
-//
-//            return $e;
-//        }
+        }catch (Exception $e){
+
+            return $e;
+        }
     }
 
     function setAddress($id){
@@ -89,6 +84,7 @@ class Home extends Component
 
             if ($order){
                 $this->orderId=$order->id;
+                $this->orderPrice=$order->price;
                 $this->userName=$order->user->name;
                 $this->orderName=$order->name;
                 $this->orderDescription=$order->description;
@@ -127,6 +123,7 @@ class Home extends Component
     public function render()
     {
         $orders=Order::with('user')->where('canceled','0')->where('accepted','0')->where('finished','0')
+            ->where('price','!=',null)
             ->whereRaw('Date(delivery_time) BETWEEN CURDATE()-2 AND CURDATE()')
             ->where(function ($query){
             $query
