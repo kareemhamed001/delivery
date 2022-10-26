@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html @if(LaravelLocalization::setLocale()=='ar')dir="rtl" @endif lang="LaravelLocalization::setLocale()">
+<html >
 
 <head>
 
@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="_token" content="{{csrf_token()}}" />
 
     <title>@yield('title')</title>
 
@@ -112,9 +113,39 @@
         });
     </script>
 @endif
+
 @livewireScripts
 @yield('scripts')
+<script>
+    {{--$.ajax({--}}
+    {{--    url: "{{url('admin/home')}}",--}}
+    {{--    method: "post",--}}
+    {{--    success:function (data){--}}
+    {{--        console.log(data)--}}
+    {{--    }--}}
+    {{--});--}}
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type:'post',
+        url:'{{url('/admin/dashboard')}}',
 
+        success:function(data) {
+            console.log(data)
+        }
+    });
+    $.ajax({
+        type:'post',
+        url:'{{url('/admin/statistics')}}',
+
+        success:function(data) {
+            console.log(data)
+        }
+    });
+</script>
 
 
 {{--    <!-- Page level plugins -->--}}

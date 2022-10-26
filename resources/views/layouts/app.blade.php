@@ -7,14 +7,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Login</title>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/sb-admin-2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
     <div id="app">
@@ -23,5 +21,8 @@
             @yield('content')
         </main>
     </div>
+    <script src="{{asset('assets/js/all.min.js')}}">
+
+    </script>
 </body>
 </html>

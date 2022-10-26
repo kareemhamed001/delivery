@@ -19,7 +19,7 @@ trait OrdersTrait
             $query->where('name', 'like', '%' . $this->term . '%')->orWhere('id', 'like', '%' . $this->term . '%')
                 ->orWhere('from_address', 'like', '%' . $this->term . '%')
                 ->orWhere('to_address', 'like', '%' . $this->term . '%');
-        })->orderBy($this->orderBy, $this->arrange)->paginate(100);
+        })->orderBy($this->orderBy, $this->arrange)->paginate(25);
     }
 
     function getPendingOrders()
@@ -71,7 +71,9 @@ trait OrdersTrait
 
     function showOrder($id)
     {
+
         try {
+
             $order = Order::where('hashed_id',$id)->first();
             if ($order) {
                 $now = \Carbon\Carbon::now();
@@ -128,6 +130,7 @@ trait OrdersTrait
                 $this->fromAddress = $order->from_address;
                 $this->toAddress = $order->to_address;
                 if ($this->orderId && $this->fromAddress && $this->toAddress) {
+
                     $this->dispatchBrowserEvent('openAcceptOrderModal');
                 }
             } else {
@@ -170,5 +173,27 @@ trait OrdersTrait
             }
         }
         $this->orderBy = $value;
+    }
+
+    function setIdToCancel($id){
+        $this->orderId=$id;
+        if ($this->orderId){
+            $this->dispatchBrowserEvent('open-cancel-modal');
+        }
+    }
+
+    function cancelOrder(){
+        try {
+            if ($this->orderId){
+                Order::where('hashed_id',$this->orderId)->delete();
+                toastr()->success('Deleted successfully');
+                $this->dispatchBrowserEvent('close-modals');
+            }else{
+                toastr()->error('unexpected error occurred');
+            }
+
+        }catch (\Exception $e){
+
+        }
     }
 }

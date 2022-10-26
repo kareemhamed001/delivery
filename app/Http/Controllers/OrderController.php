@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
+
+use App\Traits\tests;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Thread;
+use Threaded;
+
 
 class OrderController extends Controller
 {
     function index(){
+
         return view('front.createOrder');
     }
 

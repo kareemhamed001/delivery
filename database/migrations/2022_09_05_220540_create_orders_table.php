@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+//        repair table <table_name> to repair table if any errors occurs;
         ini_set('memory_limit', -1);
         Schema::create('orders', function (Blueprint $table) {
             $table->id();

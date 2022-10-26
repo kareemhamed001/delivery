@@ -13,11 +13,13 @@ class FacebookLogin extends Controller
     }
 
     function facebookCallback(){
+
         try {
             $user=Socialite::driver('facebook')->user();
             dd($user);
         }catch (\Exception $e){
 
+            return $e;
         }
 
     }

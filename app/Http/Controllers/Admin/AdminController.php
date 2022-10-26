@@ -6,18 +6,22 @@ use App\Charts\ChartJs;
 use App\Charts\HighChartsJs;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CreateOrderRequest;
+use App\Models\Motorcycle;
 use App\Models\Order;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Thread;
+use function Clue\StreamFilter\fun;
 
 class AdminController extends Controller
 {
 
-    private $barChartOptions=[
+    private $barChartOptions = [
 
         ' color' => 'rgb(13,110,253)',
 //            'legend' => [
@@ -53,6 +57,19 @@ class AdminController extends Controller
         ],
 
     ];
+
+    function showOrder(Order $order)
+    {
+
+        try {
+
+            return view('admin.orders.show', compact('order'));
+
+        } catch (Exception $e) {
+
+            return $e;
+        }
+    }
 
     function ordersView()
     {
@@ -95,6 +112,76 @@ class AdminController extends Controller
         return view('admin.users.users');
     }
 
+    function addUserView()
+    {
+        return view('admin.users.add-user');
+    }
+
+    function storeUser(Request $request)
+    {
+
+        $request->validate([
+
+            'user_name' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone_number' => ['required', 'numeric', 'starts_with:01', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'user_type' => ['required', 'int', 'max:3', 'max_digits:1'],
+
+        ]);
+
+        if ($request->user_type == 1) {
+            $request->validate([
+                'national_id' => ['required', 'numeric', 'max_digits:14', 'min_digits:14'],
+                'moto_number' => ['required', 'numeric', 'max_digits:4', 'min_digits:4'],
+                'moto_model' => ['required', 'numeric', 'date_format:Y'],
+                'year_of_getting_licence' => ['required', 'numeric', 'date_format:Y'],
+                'number_of_years_of_the_license' => ['required', 'numeric', 'max:3', 'min:1'],
+            ]);
+        }
+        try {
+
+            $user = new User();
+            $user->name = $request->user_name;
+            $user->email = $request->email;
+            $user->phone_number = $request->phone_number;
+            $user->password = Hash::make($request->password);
+            $user->role_as = $request->user_type;
+            $user->remember_token = Str::random(10);
+            if ($request->user_type == 1) {
+                $user->national_id = Str::random(10);
+            }
+
+//        $user=User::create([
+//
+//            'name'=>$request->user_name,
+//            'email'=>$request->email,
+//            'phone_number'=>$request->phone_number,
+//            'password'=>Hash::make($request->password),
+//            'role_as'=>$request->user_type,
+//            'remember_token'=>Str::random(10),
+//
+//        ]);
+            $user->save();
+
+            if ($request->user_type == 1) {
+                Motorcycle::create([
+                    'driver_id'=>$user->id,
+                    'number'=>$request->moto_number,
+                    'model'=>$request->moto_model,
+                    'licence_year'=>$request->year_of_getting_licence,
+                    'licence_years_count'=>$request->number_of_years_of_the_license,
+                    'box'=>$request->have_box?'1':'0',
+                ]);
+            }
+            toastr()->success('Email Created Successfully');
+        return redirect()->back()->with('Email Created Successfully');
+        }catch (Exception $e){
+            toastr()->error('Try Again');
+            return redirect()->back()->with('Try Again');
+        }
+    }
+
     function store(CreateOrderRequest $request)
     {
         try {
@@ -131,17 +218,96 @@ class AdminController extends Controller
         }
     }
 
+    function getStatisticsPageResults()
+    {
+
+        $yearsStatistics = Order::selectRaw(DB::raw('YEAR(delivery_time) as year , COUNT(*) as count ,SUM(price) as totalPrice '))->orderBy('year')->groupBy('year')->get();
+        $currentYearStatistics = Order::selectRaw(DB::raw('Month(delivery_time) as month , COUNT(*) as count ,SUM(price) as totalPrice,avg(price) as avg '))->whereRaw('YEAR(delivery_time) = YEAR(curdate())')->orderBy('month')->groupBy('month')->get();
+        $thisMonthPendingOrdersStatistics = DB::table('this_month_pending_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->get();
+        $thisMonthRunningOrdersStatistics = DB::table('this_month_running_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->get();
+        $thisMonthFinishedOrdersStatistics = DB::table('this_month_finished_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->get();
+        $thisMonthCanceledOrdersStatistics = DB::table('this_month_canceled_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->get();
+
+        $list = array(
+
+
+            array(
+
+                $yearsStatistics,
+                $currentYearStatistics,
+                $thisMonthPendingOrdersStatistics,
+                $thisMonthRunningOrdersStatistics,
+                $thisMonthFinishedOrdersStatistics,
+                $thisMonthCanceledOrdersStatistics,
+                now()
+            )
+        );
+
+        $file = fopen("statisticsPage.csv", "a+");
+
+        foreach ($list as $line) {
+            fputcsv($file, $line);
+        }
+
+        fclose($file);
+        return response('done', 200);
+    }
+
     function statisticsView()
 
     {
 
 
-        $query=Order::query();
-        $yearsStatistics = $query->selectRaw(DB::raw('YEAR(delivery_time) as year , COUNT(*) as count ,SUM(price) as totalPrice '))->orderBy('year')->groupBy('year')->get();
+        $rows = [];
+        $handle = fopen('statisticsPage.csv', "r");
+        while (($row = fgetcsv($handle)) !== false) {
+            $rows[] = $row;
+        }
+        fclose($handle);
+
+        $headers = array_shift($rows);
+
+        $array = [];
+        foreach ($rows as $row) {
+            $array[] = array_combine($headers, $row);
+        }
+        $yearsStatistics = json_decode($array[count($array) - 1]['yearsStatistics']);
+
+
+        $query = Order::query();
+//        $yearsStatistics = $query->selectRaw(DB::raw('YEAR(delivery_time) as year , COUNT(*) as count ,SUM(price) as totalPrice '))->orderBy('year')->groupBy('year')->get();
+
 
         $years = [];
         $yearsOrdersCount = [];
         $yearsOrdersPrics = [];
+        $yearsChart = new HighChartsJs();
+//        $query->selectRaw(DB::raw('YEAR(delivery_time) as year , COUNT(*) as count ,SUM(price) as totalPrice '))->orderBy('year')->groupBy('year')->chunk(100000,function ($ordres)use($yearsChart){
+////             $yearsStatistics =$ordres;
+//            foreach ($ordres as $value) {
+//                $years[] = $value->year;
+//                $yearsOrdersCount[] = $value->count;
+//                $yearsOrdersPrics[] = $value->totalPrice;
+//            }
+//
+//
+//            $yearsChart->title('Years statistics');
+//            $yearsChart->labels($years);
+//            $yearsChart->dataset('count of orders', 'bar', $yearsOrdersCount)
+//                ->options([
+//                    'color' =>'rgb(13,110,253)',
+//
+//                ]);
+//            $yearsChart->dataset('total prices of orders', 'bar', $yearsOrdersPrics)->options([
+//                'color' =>'rgb(25,135,84,0.9)',
+//
+//            ]);
+//            $yearsChart->height(500);
+//            $yearsChart->options($this->barChartOptions);
+//
+//        });
+
+
         foreach ($yearsStatistics as $value) {
             array_push($years, $value->year);
             array_push($yearsOrdersCount, $value->count);
@@ -151,19 +317,25 @@ class AdminController extends Controller
         $yearsChart = new HighChartsJs();
         $yearsChart->title('Years statistics');
         $yearsChart->labels($years);
-        $yearsChart->dataset('count of orders', 'bar', $yearsOrdersCount)
+        $yearsChart->dataset('count of orders', 'column', $yearsOrdersCount)
             ->options([
-                'color' =>'rgb(13,110,253)',
+                'color' => 'rgb(13,110,253)',
+                'tooltip' => [
+                    'valueSuffix' => ' unit'
+                ],
 
             ]);
-        $yearsChart->dataset('total prices of orders', 'bar', $yearsOrdersPrics)->options([
-            'color' =>'rgb(25,135,84,0.9)',
+        $yearsChart->dataset('total prices of orders', 'column', $yearsOrdersPrics)->options([
+            'color' => 'rgb(25,135,84,0.9)',
+            'tooltip' => [
+                'valueSuffix' => ' Dollar'
+            ],
 
         ]);
         $yearsChart->height(500);
         $yearsChart->options($this->barChartOptions);
 
-        $currentYearStatistics = $query->selectRaw(DB::raw('Month(delivery_time) as month , COUNT(*) as count ,SUM(price) as totalPrice,avg(price) as avg '))->whereRaw('YEAR(delivery_time) = YEAR(curdate())')->orderBy('month')->groupBy('month')->get();
+        $currentYearStatistics = json_decode($array[count($array) - 1]['currentYearStatistics']);
 
         $thisMonthAllOrdersCount = 0;
         $thisMonthAllOrdersAveragePrice = 0;
@@ -179,7 +351,7 @@ class AdminController extends Controller
             if ($value->month = Carbon::now()->month) {
                 $thisMonthAllOrdersCount = $value->count;
                 $thisMonthAllOrdersAveragePrice = $value->avg;
-                $thisMonthTotalOrdersPrice = $value->price;
+                $thisMonthTotalOrdersPrice = $value->totalPrice;
             }
         }
 
@@ -187,38 +359,37 @@ class AdminController extends Controller
         $monthsChart->title('months statistics');
         $monthsChart->labels($months);
         $monthsChart->dataset('count of orders', 'bar', $monthsOrdersCount)->options([
-            'color' =>'rgb(13,110,253)',
+            'color' => 'rgb(13,110,253)',
 
         ]);
         $monthsChart->dataset('total prices of orders', 'bar', $monthsOrdersPrics)->options([
-            'color' =>'rgb(25,135,84,0.9)',
+            'color' => 'rgb(25,135,84,0.9)',
 
         ]);;
         $monthsChart->height(500);
         $monthsChart->options($this->barChartOptions);
 
-        $thisMonthPendingOrdersStatistics = DB::table('this_month_pending_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->first();
-        $thisMonthRunningOrdersStatistics = DB::table('this_month_running_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->first();
-        $thisMonthFinishedOrdersStatistics = DB::table('this_month_finished_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->first();
-        $thisMonthCanceledOrdersStatistics = DB::table('this_month_canceled_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->first();
-
-        $thisMonthpendingOrdersCount = $thisMonthPendingOrdersStatistics->count;
-        $thisMonthpendingOrdersTotalPrice = $thisMonthPendingOrdersStatistics->price;
-        $thisMonthpendingOrdersAvg = $thisMonthPendingOrdersStatistics->avg;
-
-        $thisMonthrunningOrdersCount = $thisMonthRunningOrdersStatistics->count;
-        $thisMonthrunningOrdersTotalPrice = $thisMonthRunningOrdersStatistics->price;
-        $thisMonthrunningOrdersAvg = $thisMonthRunningOrdersStatistics->avg;
-
-        $thisMonthdeliveredOrdersCount = $thisMonthFinishedOrdersStatistics->count;
-        $thisMonthdeliveredOrdersTotalPrice = $thisMonthFinishedOrdersStatistics->price;
-        $thisMonthdeliveredOrdersTotalAvg = $thisMonthFinishedOrdersStatistics->avg;
-
-        $thisMonthcanceledOrdersCount = $thisMonthCanceledOrdersStatistics->count;
-        $thisMonthcanceledOrdersTotalPrice = $thisMonthCanceledOrdersStatistics->price;
-        $thisMonthcanceledOrdersAvg = $thisMonthCanceledOrdersStatistics->avg;
+        $thisMonthPendingOrdersStatistics = json_decode($array[count($array) - 1]['thisMonthPendingOrdersStatistics']);
+        $thisMonthRunningOrdersStatistics = json_decode($array[count($array) - 1]['thisMonthRunningOrdersStatistics']);
+        $thisMonthFinishedOrdersStatistics = json_decode($array[count($array) - 1]['thisMonthFinishedOrdersStatistics']);
+        $thisMonthCanceledOrdersStatistics = json_decode($array[count($array) - 1]['thisMonthCanceledOrdersStatistics']);
 
 
+        $thisMonthpendingOrdersCount = $thisMonthPendingOrdersStatistics[0]->count;
+        $thisMonthpendingOrdersTotalPrice = $thisMonthPendingOrdersStatistics[0]->price;
+        $thisMonthpendingOrdersAvg = $thisMonthPendingOrdersStatistics[0]->avg;
+
+        $thisMonthrunningOrdersCount = $thisMonthRunningOrdersStatistics[0]->count;
+        $thisMonthrunningOrdersTotalPrice = $thisMonthRunningOrdersStatistics[0]->price;
+        $thisMonthrunningOrdersAvg = $thisMonthRunningOrdersStatistics[0]->avg;
+
+        $thisMonthdeliveredOrdersCount = $thisMonthFinishedOrdersStatistics[0]->count;
+        $thisMonthdeliveredOrdersTotalPrice = $thisMonthFinishedOrdersStatistics[0]->price;
+        $thisMonthdeliveredOrdersTotalAvg = $thisMonthFinishedOrdersStatistics[0]->avg;
+
+        $thisMonthcanceledOrdersCount = $thisMonthCanceledOrdersStatistics[0]->count;
+        $thisMonthcanceledOrdersTotalPrice = $thisMonthCanceledOrdersStatistics[0]->price;
+        $thisMonthcanceledOrdersAvg = $thisMonthCanceledOrdersStatistics[0]->avg;
 
 
         $revenueChart = new ChartJs();
@@ -235,11 +406,11 @@ class AdminController extends Controller
         $thisMonthChart->title('This month statistics');
         $thisMonthChart->labels(['Pending Orders', 'Running Orders', 'Finished Orders', 'Canceled Orders']);
         $thisMonthChart->dataset('This Month Count', 'bar', [$thisMonthpendingOrdersCount, $thisMonthrunningOrdersCount, $thisMonthdeliveredOrdersCount, $thisMonthcanceledOrdersCount])->options([
-            'backgroundColor' =>'rgb(13,110,253)',
+            'backgroundColor' => 'rgb(13,110,253)',
 
         ]);
         $thisMonthChart->dataset('This Month Prices', 'bar', [$thisMonthpendingOrdersTotalPrice, $thisMonthrunningOrdersTotalPrice, $thisMonthdeliveredOrdersTotalPrice, $thisMonthcanceledOrdersTotalPrice])->options([
-            'backgroundColor' =>'rgb(25,135,84,0.9)',
+            'backgroundColor' => 'rgb(25,135,84,0.9)',
 
         ]);;;
 //        $thisMonthChart->dataset('This Month Average prices', 'bar', [$thisMonthpendingOrdersAvg, $thisMonthrunningOrdersAvg, $thisMonthAllOrdersAveragePrice, $thisMonthcanceledOrdersAvg]);
@@ -254,55 +425,113 @@ class AdminController extends Controller
         ));
     }
 
+    function setInterval($func, $seconds)
+    {
+        $seconds = (int)$seconds;
+        $_func = $func;
+        while (true) {
+            $_func;
+            sleep($seconds);
+        }
+    }
+
+    public function getDashboardStatisticsResultsReady()
+    {
+
+
+        $rows = [];
+        $handle = fopen('statistics.csv', "r");
+        while (($row = fgetcsv($handle)) !== false) {
+            $rows[] = $row;
+        }
+        fclose($handle);
+// Remove the first one that contains headers
+        $headers = array_shift($rows);
+// Combine the headers with each following row
+        $array = [];
+        foreach ($rows as $row) {
+            $array[] = array_combine($headers, $row);
+        }
+
+        if (\Carbon\Carbon::create($array[intval(count($array) - 1)]['time'])->diffInMinutes(now()) >= 0 || \Carbon\Carbon::create($array[intval(count($array) - 1)]['time'])->diffInHours(now()) >= 1 || \Carbon\Carbon::create($array[intval(count($array) - 1)]['time'])->diffInDays(now()) >= 1) {
+            $thisMonthOrdersEarning = \Illuminate\Support\Facades\DB::table('this_month_finished_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->first();
+            $lastMonthOrdersEarning = \App\Models\Order::selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->whereRaw('MONTH(delivery_time)=MONTH(curdate())-1')->first();
+            $todayOrdersEarning = DB::table('today_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->where('accepted', '1')->where('finished', '1')->first();
+            $pendingOrdersCountToday = DB::table('today_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->where('accepted', '0')->where('finished', '0')->where('canceled', '0')->first();
+            $canceledOrdersCountToday = DB::table('today_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->where('canceled', '1')->first();
+
+            $list = array(
+
+                array(
+                    $thisMonthOrdersEarning->price,
+                    $thisMonthOrdersEarning->count,
+                    $lastMonthOrdersEarning->price,
+                    $todayOrdersEarning->price,
+                    $todayOrdersEarning->count,
+                    $pendingOrdersCountToday->count,
+                    $pendingOrdersCountToday->price,
+                    $canceledOrdersCountToday->count,
+                    $canceledOrdersCountToday->price ?? 0,
+                    now()
+                )
+            );
+
+            $file = fopen("statistics.csv", "a+");
+
+            foreach ($list as $line) {
+                fputcsv($file, $line);
+            }
+
+            fclose($file);
+        }
+
+        return response('done', 200);
+    }
+
 
     function index()
     {
-        $monthOrdersEarning =  DB::table('this_month_finished_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->first()->price;
-        $lastMonthOrdersEarning = $this->getMonthEarningFromOrdersTable(' - 1');
 
-        $todayOrdersEarning = DB::table('today_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->where('accepted','1')->where('finished','1')->first();
-        $pendingOrdersCountToday = DB::table('today_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->where('accepted','0')->where('finished','0')->where('canceled','0')->first();
-        $canceledOrdersCountToday = DB::table('today_orders_view')->selectRaw(DB::raw('COUNT(*) as count ,SUM(price) as price,AVG(price) as avg'))->where('canceled','1')->first();
+        // Parse the rows
+        $rows = [];
+        $handle = fopen('statistics.csv', "r");
+        while (($row = fgetcsv($handle)) !== false) {
+            $rows[] = $row;
+        }
+        fclose($handle);
+// Remove the first one that contains headers
 
-        $topDriversToday = Order::with('driver')->selectRaw('accepted_by,COUNT(accepted_by) as count,SUM(price) as revenue')
-            ->where('accepted', '1')
-            ->where('finished', '1')
-            ->where('accepted_by', '!=', 'null')
-            ->whereRaw('DATE(delivery_time)= curdate()')
-            ->orderBy('revenue', 'desc')
-            ->groupBy('accepted_by')
-            ->take(5)->get();
 
-        $DriversNames = [
-            0 => null,
-            1 => null,
-            2 => null,
-            3 => null,
-            4 => null,
-        ];
-        $DriversRevenue = [];
-        $count = [];
-        $i = 0;
-        foreach ($topDriversToday as $topDriverToday) {
-            $DriversNames[$i] = $topDriverToday->driver->name;
-            array_push($DriversRevenue, $topDriverToday->revenue);
-            array_push($count, $topDriverToday->count);
-            $i++;
+        $headers = array_shift($rows);
+// Combine the headers with each following row
+        $array = [];
+
+        foreach ($rows as $row) {
+            $array[] = array_combine($headers, $row);
         }
 
+        $thisMonthOrdersEarning = floatval($array[intval(count($array) - 1)]['thisMonthOrdersEarning']);
+        $thisMonthOrdersCount = floatval($array[intval(count($array) - 1)]['thisMonthOrdersCount']);
+        $lastMonthOrdersEarning = floatval($array[intval(count($array) - 1)]['lastMonthOrdersEarning']);
+        $todayOrdersEarning = floatval($array[intval(count($array) - 1)]['todayOrdersEarning']);
+        $todayOrdersCount = floatval($array[intval(count($array) - 1)]['todayOrdersCount']);
+        $pendingOrdersCountToday = floatval($array[intval(count($array) - 1)]['pendingOrdersCountToday']);
+        $pendingOrdersPriceToday = floatval($array[intval(count($array) - 1)]['pendingOrdersPriceToday']);
+        $canceledOrdersCountToday = floatval($array[intval(count($array) - 1)]['canceledOrdersCountToday']);
+        $canceledOrdersPriceToday = floatval($array[intval(count($array) - 1)]['canceledOrdersPriceToday']);
 
-        $topDriversChart = new ChartJs();
-        $topDriversChart->labels($DriversNames);
-        $topDriversChart->dataset('today earning', 'doughnut', $DriversRevenue)->options([
-            'backgroundColor' => ['rgb(13,110,253)', 'rgb(25,135,84,0.9)', 'rgb(13,202,240,0.8)', 'rgb(255,193,7,0.7)', 'rgb(108,117,125,0.6)'],
-            'tooltip' => [
-                'show' => true
-            ],
-        ]);
-        $topDriversChart->displayLegend(false);
-        $topDriversChart->minimalist(true);
+        return view('admin.dashBoard', compact(
+            'thisMonthOrdersEarning',
+            'thisMonthOrdersCount',
+            'lastMonthOrdersEarning',
+            'todayOrdersEarning',
+            'todayOrdersCount',
+            'pendingOrdersCountToday',
+            'pendingOrdersPriceToday',
+            'canceledOrdersCountToday',
+            'canceledOrdersPriceToday',
+        ));
 
-        return view('admin.dashBoard', compact('lastMonthOrdersEarning',  'canceledOrdersCountToday', 'DriversNames', 'topDriversChart', 'pendingOrdersCountToday', 'todayOrdersEarning', 'monthOrdersEarning'));
     }
 
     function getYearEarningFromOrdersTable(string $numberOfYears = '0', $yAxis = 'sum(price)', $monthsXAxes = 'delivery_time')
@@ -354,7 +583,7 @@ class AdminController extends Controller
     function getMonthEarningFromOrdersTable(string $numberOfMonths = '0')
     {
         $mothEarning = Order::
-        where('finished', '1')->where('accepted','1')
+        where('finished', '1')->where('accepted', '1')
             ->whereRaw('MONTH(delivery_time) = MONTH(CURDATE()) +' . ($numberOfMonths ? $numberOfMonths : '0'))
             ->sum('price');
         return $mothEarning;
@@ -367,7 +596,6 @@ class AdminController extends Controller
             ->cursor()->sum('price');
         return $monthLoses;
     }
-
 
 
 }

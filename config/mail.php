@@ -51,10 +51,15 @@ return [
 
         'mailgun' => [
             'transport' => 'mailgun',
+            'domain' => env('MAILGUN_DOMAIN'),
+            'secret' => env('MAILGUN_SECRET-mailgun-key'),
+            'endpoint'=>env('MAILGUN_ENDPOINT','api.mailgun.net'),
+            'schema'=>'https'
         ],
 
         'postmark' => [
             'transport' => 'postmark',
+
         ],
 
         'sendmail' => [
@@ -92,8 +97,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'support@sprint.com'),
+        'name' => env('MAIL_FROM_NAME', 'Sprint'),
     ],
 
     /*

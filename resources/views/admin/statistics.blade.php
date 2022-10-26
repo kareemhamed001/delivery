@@ -39,4 +39,26 @@
     {!! $revenueChart->script() !!}
     {{--    {!! $lastYearEarningChart->script() !!}--}}
 
+{{--    <script>--}}
+{{--        --}}{{--$.ajax({--}}
+{{--        --}}{{--    url: "{{url('admin/home')}}",--}}
+{{--        --}}{{--    method: "post",--}}
+{{--        --}}{{--    success:function (data){--}}
+{{--        --}}{{--        console.log(data)--}}
+{{--        --}}{{--    }--}}
+{{--        --}}{{--});--}}
+{{--        $.ajaxSetup({--}}
+{{--            headers: {--}}
+{{--                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')--}}
+{{--            }--}}
+{{--        });--}}
+{{--        $.ajax({--}}
+{{--            type:'post',--}}
+{{--            url:'{{url('/admin/statistics')}}',--}}
+
+{{--            success:function(data) {--}}
+{{--                console.log(data)--}}
+{{--            }--}}
+{{--        });--}}
+{{--    </script>--}}
 @endsection

@@ -127,7 +127,7 @@
 
                         <div
                             class="col-12 h-30 details-section border-0  p-1 position-relative">
-                            <div class="h3 text-dark font-size-2-rem ">{{__('myOrdersPage.RunningOrdersHeader')}}</div>
+                            <div class="h5 text-dark  ">{{__('myOrdersPage.RunningOrdersHeader')}}</div>
                             <div class="text-dark">{{__('myOrdersPage.RunningOrdersSubheader')}}
                             </div>
                             <div class="position-absolute bottom-0 @if(LaravelLocalization::setLocale()=='ar') start-0 @else  end-0 @endif m-1 text-primary"> {{ __('homePage.explore') }}</div>
@@ -205,7 +205,7 @@
 
                         <div
                             class="col-12 h-30 details-section border-0  p-1 position-relative">
-                            <div class="h3 text-dark font-size-2-rem">{{__('Pending Orders')}}</div>
+                            <div class="h5 text-dark ">{{__('Pending Orders')}}</div>
                             <div class=" text-dark">{{__('myOrdersPage.CanceledOrdersSubheader')}}
                             </div>
                             <div class="position-absolute bottom-0 @if(LaravelLocalization::setLocale()=='ar') start-0 @else  end-0 @endif m-1 text-primary"> {{ __('homePage.explore') }}</div>
@@ -350,7 +350,7 @@
 
                         <div
                             class="col-12 h-30 details-section border-0  p-1 position-relative">
-                            <div class="h3 text-dark font-size-2-rem">{{__('myOrdersPage.DeliveredOrdersHeader')}}</div>
+                            <div class="h5 text-dark ">{{__('myOrdersPage.DeliveredOrdersHeader')}}</div>
                             <div class=" text-dark">{{__('myOrdersPage.DeliveredOrdersSubheader')}}
                             </div>
                             <div class="position-absolute bottom-0 @if(LaravelLocalization::setLocale()=='ar') start-0 @else  end-0 @endif m-1 text-primary"> {{ __('homePage.explore') }}</div>
@@ -428,7 +428,7 @@
 
                         <div
                             class="col-12 h-30 details-section border-0  p-1 position-relative">
-                            <div class="h3 text-dark font-size-2-rem">{{__('myOrdersPage.CanceledOrdersHeader')}}</div>
+                            <div class="h5 text-dark ">{{__('myOrdersPage.CanceledOrdersHeader')}}</div>
                             <div class=" text-dark">{{__('myOrdersPage.CanceledOrdersSubheader')}}
                             </div>
                             <div class="position-absolute bottom-0 @if(LaravelLocalization::setLocale()=='ar') start-0 @else  end-0 @endif m-1 text-primary"> {{ __('homePage.explore') }}</div>

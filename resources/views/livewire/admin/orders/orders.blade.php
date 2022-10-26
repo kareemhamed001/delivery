@@ -41,13 +41,16 @@
                    @forelse($orders as $order)
 
                        <tr class="cursor-pointer">
-                           <th  wire:click="showOrder('{{ $order->hashed_id }}')">{{ $order->id }}</th>
-                           <td class="d-none d-sm-table-cell" wire:click="showOrder('{{ $order->hashed_id }}')">{{$order->name}}</td>
+                           <a class="text-decoration-none text-dark " href="{{url('admin/order/'.$order->id.'/show')}}">
+                               <th ><a class="text-decoration-none text-dark " href="{{url('admin/order/'.$order->id.'/show')}}">{{ $order->id }}</a></th>
+                               <td class="d-none d-sm-table-cell" ><a class="text-decoration-none text-dark" href="{{url('admin/order/'.$order->id.'/show')}}">{{$order->name}}</a> </td>
 
-                           <td  wire:click="showOrder('{{ $order->hashed_id }}')">{{$order->from_address}}</td>
-                           <td class="d-none d-sm-table-cell" wire:click="showOrder('{{$order->hashed_id}}')">{{$order->to_address}}</td>
+                               <td ><a class="text-decoration-none text-dark" href="{{url('admin/order/'.$order->id.'/show')}}">{{$order->from_address}}</a></td>
+                               <td class="d-none d-sm-table-cell"><a class="text-decoration-none text-dark" href="{{url('admin/order/'.$order->id.'/show')}}">{{$order->to_address}}</a></td>
 
-                           <td  wire:click="showOrder('{{$order->hashed_id}}')">{{\Carbon\Carbon::parse($order->delivery_time)->diffForHumans(now())  }}</td>
+                               <td ><a class="text-decoration-none text-dark" href="{{url('admin/order/'.$order->id.'/show')}}">{{\Carbon\Carbon::parse($order->delivery_time)->diffForHumans(now())  }}</a></td>
+
+                           </a>
 
                        </tr>
                    @empty

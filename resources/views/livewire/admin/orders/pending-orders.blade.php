@@ -51,8 +51,12 @@
 
                             <td  wire:click="showOrder('{{$order->hashed_id}}')">{{\Carbon\Carbon::parse($order->delivery_time)->diffForHumans(now())  }}</td>
 
-                            <td>
-                                <button class="btn btn-sm btn-success"  wire:click="setAddress('{{ $order->hashed_id }}')">Price</button>
+                            <td class="col">
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-success"  wire:click="setAddress('{{ $order->hashed_id }}')">Price</button>
+                                    <button class="btn btn-sm btn-danger"  wire:click="setIdToCancel('{{ $order->hashed_id }}')">Cancel</button>
+                                </div>
+
                             </td>
 
                         </tr>
@@ -76,6 +80,7 @@
         window.addEventListener('close-modals', function () {
             $('#showOrderModal').modal('hide');
             $('#acceptOrderModal').modal('hide');
+            $('#cancelOrderModal').modal('hide');
         });
 
         window.addEventListener('openShowOrderModal', function () {
@@ -85,6 +90,10 @@
         window.addEventListener('openAcceptOrderModal', function () {
 
             $('#acceptOrderModal').modal('show');
+        });
+        window.addEventListener('open-cancel-modal', function () {
+
+            $('#cancelOrderModal').modal('show');
         });
     </script>
 @endpush

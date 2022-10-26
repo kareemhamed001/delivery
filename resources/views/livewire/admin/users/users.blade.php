@@ -24,6 +24,9 @@
         <h4 class="h4 font-weight-bold text-gray-800 col">{{$pageTitle}}</h4>
 
 
+        <div class="col ">
+            <a class="btn btn btn-primary float-end shadow" href="{{url('admin/addUser')}}">Add</a>
+        </div>
 
     </div>
     <div class="row">
@@ -38,6 +41,7 @@
                             <div class="h5 mb-0 font-weight-bold text-success">
                                 {{$count}}
                             </div>
+
                         </div>
                         <div class="col-auto">
                             <i class="fa-regular fa-user fa-2x  text-primary"></i>
