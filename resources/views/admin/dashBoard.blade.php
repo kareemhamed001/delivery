@@ -19,7 +19,7 @@
                                 Pending Orders Count(today)
                             </div>
                             <div
-                                class="h5 mb-0 font-weight-bold text-gray-800">{{$pendingOrdersCountToday}}</div>
+                                class="h5 mb-0 font-weight-bold text-gray-800" id="pendingOrdersCountToday">{{$pendingOrdersCountToday}}</div>
                         </div>
                         <div class="col-auto">
 
@@ -39,7 +39,7 @@
                                 Canceled Orders Count(today)
                             </div>
                             <div
-                                class="h5 mb-0 font-weight-bold text-gray-800">{{$canceledOrdersCountToday}}</div>
+                                class="h5 mb-0 font-weight-bold text-gray-800" id="canceledOrdersCountToday">{{$canceledOrdersCountToday}}</div>
                         </div>
                         <div class="col-auto">
 
@@ -59,7 +59,7 @@
                                 Earnings (today)
                             </div>
 
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="todayOrdersEarning">
                                 $ {{$todayOrdersEarning}} </div>
                         </div>
                         <div class="col-auto">
@@ -78,7 +78,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Earnings (This month)
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="thisMonthOrdersEarning">
                                 $ {{$thisMonthOrdersEarning}} </div>
                         </div>
                         <div class="col-auto">
@@ -97,7 +97,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Earnings (last month)
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="lastMonthOrdersEarning">
                                 $ {{$lastMonthOrdersEarning}} </div>
                         </div>
                         <div class="col-auto">
@@ -110,44 +110,44 @@
 
         <div class="col-xl-4 col-md-6 mb-4 ">
             <div
-                class="card @if($lastMonthOrdersEarning&& (round((($thisMonthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)<0) border-left-danger @else border-left-success @endif  shadow h-100 py-2">
+                class="card @if($lastMonthOrdersEarning&& (round((($thisMonthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)<0) border-left-danger @else border-left-success @endif text-success  shadow h-100 py-2" id="earningCard">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div
-                                class="text-xs font-weight-bold  @if($lastMonthOrdersEarning &&(round((($thisMonthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)<0) text-danger @else  text-success  @endif text-uppercase mb-1">
+                                class="text-xs font-weight-bold  @if($lastMonthOrdersEarning &&(round((($thisMonthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)<0) text-danger @else  text-success  @endif text-uppercase mb-1" id="earningRateHeader">
 
                                 Earning Rate (last month)
                             </div>
                             <div
-                                class="h5 mb-0 font-weight-bold @if($lastMonthOrdersEarning&&(round((($thisMonthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)<0) text-danger @else text-success @endif ">
+                                class="h5 mb-0 font-weight-bold @if($lastMonthOrdersEarning&&(round((($thisMonthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)<0) text-danger @else text-success @endif " id="earningRate">
                                 @if($lastMonthOrdersEarning)
                                     % {{round((($thisMonthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100}}
                                 @else
                                     % 0
                                 @endif
 
-                                @if($lastMonthOrdersEarning&&(round((($thisMonthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)<0)
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M14.8285 12.0259L16.2427 13.4402L12 17.6828L7.7574 13.4402L9.17161 12.0259L11 13.8544V6.31724H13V13.8544L14.8285 12.0259Z"
-                                            fill="currentColor"/>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                              d="M19.7782 19.7782C15.4824 24.0739 8.51759 24.0739 4.22183 19.7782C-0.0739417 15.4824 -0.0739417 8.51759 4.22183 4.22183C8.51759 -0.0739419 15.4824 -0.0739419 19.7782 4.22183C24.0739 8.51759 24.0739 15.4824 19.7782 19.7782ZM18.364 18.364C14.8492 21.8787 9.15076 21.8787 5.63604 18.364C2.12132 14.8492 2.12132 9.15076 5.63604 5.63604C9.15076 2.12132 14.8492 2.12132 18.364 5.63604C21.8787 9.15076 21.8787 14.8492 18.364 18.364Z"
-                                              fill="currentColor"/>
-                                    </svg>
-                                @elseif($lastMonthOrdersEarning&&(round((($thisMonthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)>0)
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M14.8285 11.9481L16.2427 10.5339L12 6.29122L7.7574 10.5339L9.17161 11.9481L11 10.1196V17.6568H13V10.1196L14.8285 11.9481Z"
-                                            fill="currentColor"/>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                              d="M19.7782 4.22183C15.4824 -0.0739415 8.51759 -0.0739422 4.22183 4.22183C-0.0739415 8.51759 -0.0739422 15.4824 4.22183 19.7782C8.51759 24.0739 15.4824 24.0739 19.7782 19.7782C24.0739 15.4824 24.0739 8.51759 19.7782 4.22183ZM18.364 5.63604C14.8492 2.12132 9.15076 2.12132 5.63604 5.63604C2.12132 9.15076 2.12132 14.8492 5.63604 18.364C9.15076 21.8787 14.8492 21.8787 18.364 18.364C21.8787 14.8492 21.8787 9.15076 18.364 5.63604Z"
-                                              fill="currentColor"/>
-                                    </svg>
-                                @endif
+{{--                                @if($lastMonthOrdersEarning&&(round((($thisMonthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)<0)--}}
+{{--                                    <svg id="downArrow" class="d-none" width="24" height="24" viewBox="0 0 24 24" fill="none"--}}
+{{--                                         xmlns="http://www.w3.org/2000/svg">--}}
+{{--                                        <path--}}
+{{--                                            d="M14.8285 12.0259L16.2427 13.4402L12 17.6828L7.7574 13.4402L9.17161 12.0259L11 13.8544V6.31724H13V13.8544L14.8285 12.0259Z"--}}
+{{--                                            fill="currentColor"/>--}}
+{{--                                        <path fill-rule="evenodd" clip-rule="evenodd"--}}
+{{--                                              d="M19.7782 19.7782C15.4824 24.0739 8.51759 24.0739 4.22183 19.7782C-0.0739417 15.4824 -0.0739417 8.51759 4.22183 4.22183C8.51759 -0.0739419 15.4824 -0.0739419 19.7782 4.22183C24.0739 8.51759 24.0739 15.4824 19.7782 19.7782ZM18.364 18.364C14.8492 21.8787 9.15076 21.8787 5.63604 18.364C2.12132 14.8492 2.12132 9.15076 5.63604 5.63604C9.15076 2.12132 14.8492 2.12132 18.364 5.63604C21.8787 9.15076 21.8787 14.8492 18.364 18.364Z"--}}
+{{--                                              fill="currentColor"/>--}}
+{{--                                    </svg>--}}
+{{--                                @elseif($lastMonthOrdersEarning&&(round((($thisMonthOrdersEarning/$lastMonthOrdersEarning)*100),2)-100)>0)--}}
+{{--                                    <svg id="upArrow" class="d-none" width="24" height="24" viewBox="0 0 24 24" fill="none"--}}
+{{--                                         xmlns="http://www.w3.org/2000/svg">--}}
+{{--                                        <path--}}
+{{--                                            d="M14.8285 11.9481L16.2427 10.5339L12 6.29122L7.7574 10.5339L9.17161 11.9481L11 10.1196V17.6568H13V10.1196L14.8285 11.9481Z"--}}
+{{--                                            fill="currentColor"/>--}}
+{{--                                        <path fill-rule="evenodd" clip-rule="evenodd"--}}
+{{--                                              d="M19.7782 4.22183C15.4824 -0.0739415 8.51759 -0.0739422 4.22183 4.22183C-0.0739415 8.51759 -0.0739422 15.4824 4.22183 19.7782C8.51759 24.0739 15.4824 24.0739 19.7782 19.7782C24.0739 15.4824 24.0739 8.51759 19.7782 4.22183ZM18.364 5.63604C14.8492 2.12132 9.15076 2.12132 5.63604 5.63604C2.12132 9.15076 2.12132 14.8492 5.63604 18.364C9.15076 21.8787 14.8492 21.8787 18.364 18.364C21.8787 14.8492 21.8787 9.15076 18.364 5.63604Z"--}}
+{{--                                              fill="currentColor"/>--}}
+{{--                                    </svg>--}}
+{{--                                @endif--}}
                             </div>
                         </div>
                         <div class="col-auto">

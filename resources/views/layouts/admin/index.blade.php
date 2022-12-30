@@ -134,7 +134,27 @@
         url:'{{url('/admin/dashboard')}}',
 
         success:function(data) {
-            console.log(data)
+
+            $('#pendingOrdersCountToday').html(data[0][5])
+            $('#canceledOrdersCountToday').html(data[0][7])
+            $('#todayOrdersEarning').html('$ '+data[0][3])
+            $('#thisMonthOrdersEarning').html('$ '+data[0][0])
+            $('#lastMonthOrdersEarning').html('$ '+data[0][2])
+            $('#earningCard').removeClass('border-left-danger border-left-success')
+            thisMonthEarning=data[0][0];
+            lastMonthEarning=data[0][2];
+            earningRate=((thisMonthEarning/lastMonthEarning)*100)-100
+            if (earningRate>0){
+                $('#earningRateHeader').removeClass('text-success  text-danger')
+                $('#earningRate').removeClass('text-success  text-danger')
+                $('#earningCard').addClass('border-left-success text-success ')
+            }else {
+                $('#earningRateHeader').removeClass('text-success  text-danger')
+                $('#earningRate').removeClass('text-success  text-danger')
+                $('#earningCard').addClass('border-left-danger text-danger')
+            }
+            $('#earningRate').html('% '+(earningRate).toFixed(2) )
+
         }
     });
     $.ajax({

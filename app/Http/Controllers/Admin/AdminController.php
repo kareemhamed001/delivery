@@ -485,7 +485,7 @@ class AdminController extends Controller
             fclose($file);
         }
 
-        return response('done', 200);
+        return response($list, 200);
     }
 
 

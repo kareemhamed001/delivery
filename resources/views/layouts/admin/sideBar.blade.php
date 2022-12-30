@@ -6,7 +6,7 @@
         <div class="sidebar-brand-icon rotate-n-15 col-10 col-md-5  overflow-hidden">
             <img class="w-100 mh-100" src="{{asset('assets/images/sonic-01.png')}}" alt="">
         </div>
-        <div class="sidebar-brand-text mx-3">Sonic </div>
+        <div class="sidebar-brand-text mx-3">Sprint </div>
     </a>
 
     <!-- Divider -->

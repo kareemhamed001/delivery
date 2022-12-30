@@ -46,13 +46,13 @@ Route::group(['prefix'=>LaravelLocalization::setLocale(),'middleware'=>['localeS
     Route::get('join_us',[HomeController::class,'joinUs']);
     Route::post('join_us',[HomeController::class,'storeJoinOrder']);
 
-    Route::get('order',[OrderController::class,'index'])->middleware('verified');
-    Route::post('order',[OrderController::class,'store'])->middleware('auth')->middleware('verified');
+    Route::get('order',[OrderController::class,'index']);
+    Route::post('order',[OrderController::class,'store'])->middleware('auth');
 
-    Route::get('my_orders',[myOrdersController::class,'index'])->middleware('auth')->middleware('verified');
+    Route::get('my_orders',[myOrdersController::class,'index'])->middleware('auth');
 
-    Route::get('my_orders/running_orders',[myOrdersController::class,'runningOrders'])->middleware('auth')->middleware('verified');
-    Route::get('my_orders/pending_orders',[myOrdersController::class,'pendingOrders'])->middleware('auth')->middleware('verified');
+    Route::get('my_orders/running_orders',[myOrdersController::class,'runningOrders'])->middleware('auth');
+    Route::get('my_orders/pending_orders',[myOrdersController::class,'pendingOrders'])->middleware('auth');
     Route::get('my_orders/delivered_orders',[myOrdersController::class,'deliveredOrders'])->middleware('auth')->middleware('verified');
     Route::get('my_orders/canceled_orders',[myOrdersController::class,'canceledOrders'])->middleware('auth')->middleware('verified');
 });
